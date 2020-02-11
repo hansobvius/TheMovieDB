@@ -12,7 +12,7 @@ class MovieModel(
     @SerializedName("backdrop_path")val backdropPath: String,
     @SerializedName("original_language")val originalLanguage: String,
     @SerializedName("original_title")val originalTitle: String,
-    @SerializedName("genre_ids")val genreIds: GenreIds,
+    @SerializedName("genre_ids")val genreIds: List<GenreIds>,
     @SerializedName("title")val title: String,
     @SerializedName("vote_avarage")val voteAvarage: Float,
     @SerializedName("overview")val overview: String,
