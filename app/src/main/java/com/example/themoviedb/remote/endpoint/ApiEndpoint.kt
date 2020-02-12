@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface ApiEndpoint {
 
     @GET("popular")
-    fun getPopularMovies(
+    suspend fun getPopularMovies(
         @Query("api_key") apiKey: String,
         @Query("language")language: String,
         @Query("page") page: Int): Response<ResultModel>

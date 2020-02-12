@@ -2,6 +2,7 @@ package com.example.themoviedb.domain
 
 import android.app.job.JobScheduler
 import android.content.Context
+import android.util.Log
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.remotemodel.ResultModel
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +33,7 @@ class ProjectRepository(
             .SERVICE
             .getPopularMovies(API_KEY, LANGUAGE, PAGE)
         data.let{
+            Log.i("TEST", data.body().toString())
             return data.body()
         }
     }
