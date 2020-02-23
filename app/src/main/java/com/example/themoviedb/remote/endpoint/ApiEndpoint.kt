@@ -12,4 +12,10 @@ interface ApiEndpoint {
         @Query("api_key") apiKey: String,
         @Query("language")language: String,
         @Query("page") page: Int): Response<ResultModel>
+
+    @GET
+    suspend fun getMostRated(
+        @Query("api_key") apiKey: String,
+        @Query("language")language: String,
+        @Query("page") page: Int): Response<ResultModel>
 }

@@ -4,5 +4,7 @@ import com.example.themoviedb.remote.endpoint.ApiImplementation
 
 interface RemoteImplementation {
 
-    fun fetchMovies(): ApiImplementation
+    fun fetchPopularMovies(): ApiImplementation
+
+    fun fetchMostRatedMovies(): ApiImplementation
 }

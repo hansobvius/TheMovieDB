@@ -1,6 +1,5 @@
 package com.example.themoviedb.domain
 
-import android.app.job.JobScheduler
 import android.content.Context
 import android.util.Log
 import com.example.themoviedb.remote.RemoteProject
@@ -29,7 +28,7 @@ class ProjectRepository(
 
     suspend fun remoteService(): ResultModel? {
         val data = remoteProject
-            .fetchMovies()
+            .fetchPopularMovies()
             .SERVICE
             .getPopularMovies(API_KEY, LANGUAGE, PAGE)
         data.let{

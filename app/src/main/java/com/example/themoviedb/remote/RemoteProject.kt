@@ -5,5 +5,7 @@ import com.example.themoviedb.remote.service.ServiceApi
 
 class RemoteProject(private val serviceApi: ServiceApi): RemoteImplementation {
 
-    override fun fetchMovies(): ApiImplementation = ApiImplementation(serviceApi)
+    override fun fetchPopularMovies(): ApiImplementation = ApiImplementation(serviceApi)
+
+    override fun fetchMostRatedMovies(): ApiImplementation = ApiImplementation(serviceApi)
 }
