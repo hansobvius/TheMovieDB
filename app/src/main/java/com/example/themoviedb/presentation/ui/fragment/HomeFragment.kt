@@ -6,16 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeFragmentBinding
+import com.example.themoviedb.presentation.adapter.MainAdapter
 import com.example.themoviedb.presentation.viewmodel.HomeViewModel
+import com.example.themoviedb.remote.remotemodel.ResultModel
+import kotlinx.android.synthetic.main.activity_main.view.*
+import kotlinx.android.synthetic.main.home_fragment.view.*
 
 class HomeFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeFragment()
-    }
-
     private lateinit var viewModel: HomeViewModel
+    private lateinit var adapter: MainAdapter<ResultModel>
     private lateinit var binding: HomeFragmentBinding
 
     override fun onCreateView(
@@ -32,6 +34,15 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        adapter = MainAdapter(binding.textView as View){
+            it.initBindView {
+                it.itemView.text_view.text = ""
+            }
+        }
     }
 
 }
