@@ -11,8 +11,7 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class DomainRepository(
-    private val remoteProject: RemoteProject,
-    val context: Context) {
+    private val remoteProject: RemoteProject) {
 
     private var scope: CoroutineScope
     private val job = SupervisorJob()
@@ -30,7 +29,7 @@ class DomainRepository(
     private suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
 
-    private suspend fun remoteService(): ResultModel? {
+    suspend fun remoteService(): ResultModel? {
         return fetchData{
             val data = remoteProject
                 .fetchPopularMovies()

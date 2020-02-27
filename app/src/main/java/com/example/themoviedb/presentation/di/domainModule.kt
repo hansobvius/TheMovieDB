@@ -7,6 +7,6 @@ import org.koin.dsl.module
 val domainModule = module{
 
     single<DomainRepository>{
-        DomainRepository(get(), androidContext())
+        DomainRepository(get())
     }
 }
