@@ -42,8 +42,8 @@ class HomeFragment : Fragment() {
             this.initAdapter()
             this.initObserver()
         }
-
     }
+
     private fun initAdapter(){
         movieAdapter = MovieAdapter(CONTENT_HOLDER)
         binding.recyclerView.apply{
@@ -68,6 +68,5 @@ class HomeFragment : Fragment() {
     companion object{
         const val CONTENT_HOLDER = R.layout.item_content
     }
-
 }
 

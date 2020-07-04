@@ -3,7 +3,6 @@ package com.example.themoviedb.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.domain.DomainRepository
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.remotemodel.ResultModel
@@ -18,8 +17,11 @@ class HomeViewModel : ViewModel() {
     private var remoteProject: RemoteProject
     private var serviceApi: ServiceApi
     private var domainRepository: DomainRepository
+    private var scope: CoroutineScope
+    private val job = SupervisorJob()
 
     init{
+        scope = CoroutineScope(job + Dispatchers.Main)
         serviceApi = ServiceApi()
         remoteProject = RemoteProject(serviceApi)
         domainRepository = DomainRepository(remoteProject)
@@ -33,12 +35,9 @@ class HomeViewModel : ViewModel() {
     val mostRatedMovies: LiveData<ResultModel> get() = _mostRatedMovies
 
     private fun initNetworkRequest(){
-        viewModelScope.launch{
+        scope.launch{
             _poppularMovies.value = domainRepository.remoteService()
         }
     }
 
-    fun resetHomeViewModel(){
-
-    }
 }
