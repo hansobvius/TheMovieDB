@@ -18,12 +18,6 @@ class DomainRepository(
         scope = CoroutineScope(job + Dispatchers.Main)
     }
 
-    fun initNetworkRequest(){
-        scope.launch{
-            remoteService()
-        }
-    }
-
     private suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
 

@@ -10,11 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.presentation.adapter.MainAdapter
 import com.example.themoviedb.presentation.adapter.MovieAdapter
 import com.example.themoviedb.presentation.viewmodel.HomeViewModel
 import com.example.themoviedb.remote.remotemodel.MovieModel
-import com.example.themoviedb.remote.remotemodel.ResultModel
 import kotlinx.android.synthetic.main.item_content.view.*
 
 class HomeFragment : Fragment() {

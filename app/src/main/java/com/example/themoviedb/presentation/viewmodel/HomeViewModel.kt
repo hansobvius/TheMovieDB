@@ -18,10 +18,9 @@ class HomeViewModel : ViewModel() {
     private var serviceApi: ServiceApi
     private var domainRepository: DomainRepository
     private var scope: CoroutineScope
-    private val job = SupervisorJob()
 
     init{
-        scope = CoroutineScope(job + Dispatchers.Main)
+        scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
         serviceApi = ServiceApi()
         remoteProject = RemoteProject(serviceApi)
         domainRepository = DomainRepository(remoteProject)
@@ -39,5 +38,4 @@ class HomeViewModel : ViewModel() {
             _poppularMovies.value = domainRepository.remoteService()
         }
     }
-
 }

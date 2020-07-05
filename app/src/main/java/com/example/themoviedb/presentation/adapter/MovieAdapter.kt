@@ -14,8 +14,8 @@ import kotlinx.android.synthetic.main.item_content.view.*
 class MovieAdapter<L>(
     private val view: Int): RecyclerView.Adapter<BaseViewHolder>() {
 
-    private var objectList: MutableList<L>? = mutableListOf()
     var adapterCallback: ((view: View, position: Int, list: MutableList<L>?) -> Unit)? = null
+    private var objectList: MutableList<L>? = mutableListOf()
 
     fun initializeAdapterData(list: List<L>){
         this.objectList?.addAll(list)
