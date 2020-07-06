@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.presentation.adapter.MovieAdapter
+import com.example.themoviedb.databinding.ItemContentBinding
+import com.example.themoviedb.presentation.adapter.MainAdapter
 import com.example.themoviedb.presentation.viewmodel.HomeViewModel
 import com.example.themoviedb.remote.remotemodel.MovieModel
 import kotlinx.android.synthetic.main.item_content.view.*
@@ -18,7 +22,7 @@ import kotlinx.android.synthetic.main.item_content.view.*
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var movieAdapter: MovieAdapter<MovieModel>
+    private lateinit var mainAdapter: MainAdapter<MovieModel, ItemContentBinding>
     private lateinit var binding: HomeFragmentBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,21 +47,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter(){
-        movieAdapter = MovieAdapter(CONTENT_HOLDER)
+        mainAdapter = MainAdapter(CONTENT_HOLDER)
         binding.recyclerView.apply{
             this.clipToPadding = true
-            this.layoutManager = LinearLayoutManager(this@HomeFragment.requireContext())
-            this.adapter = movieAdapter
+            this.layoutManager = LinearLayoutManager(
+                this@HomeFragment.requireContext(),
+                RecyclerView.HORIZONTAL,
+                false)
+            this.adapter = mainAdapter
         }
     }
 
     private fun initObserver(){
         viewModel.popularMovies.observe(this, Observer {value ->
             value.let {
-                movieAdapter.initializeAdapterData(it.results)
-                movieAdapter.apply {
+                mainAdapter.initializeAdapterData(it.results)
+                mainAdapter.apply {
                     initializeAdapterData(it.results)
-                    this.adapterCallback = { view, position, list -> view.item_text_view.text = list?.get(position)?.title }
+                    this.adapterCallback = { view, position, list -> view.itemTextView.text = list?.get(position)?.title }
                 }
             }
         })

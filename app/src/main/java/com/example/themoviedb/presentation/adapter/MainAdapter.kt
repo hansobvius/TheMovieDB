@@ -3,18 +3,13 @@ package com.example.themoviedb.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBinderMapperImpl
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.themoviedb.databinding.ItemContentBinding
-import com.example.themoviedb.remote.remotemodel.MovieModel
-import kotlinx.android.synthetic.main.item_content.view.*
 
-class MovieAdapter<L>(
-    private val view: Int): RecyclerView.Adapter<BaseViewHolder>() {
+class MainAdapter<L,D>(
+    private val view: Int): RecyclerView.Adapter<BaseViewHolder<D>>() where D: ViewDataBinding{
 
-    var adapterCallback: ((view: View, position: Int, list: MutableList<L>?) -> Unit)? = null
+    var adapterCallback: ((view: D, position: Int, list: MutableList<L>?) -> Unit)? = null
     private var objectList: MutableList<L>? = mutableListOf()
 
     fun initializeAdapterData(list: List<L>){
@@ -22,15 +17,15 @@ class MovieAdapter<L>(
         this.notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<D> =
         BaseViewHolder(LayoutInflater.from(parent.context).inflate(view, parent, false))
 
     override fun getItemCount(): Int = objectList?.count() ?: OPTIONAL_SIZE_VALUE
 
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
         holder.initBindView { view ->
-            view.root.apply{
-                adapterCallback?.invoke(this, position, objectList)
+            view.apply{
+                adapterCallback?.invoke(this as D, position, objectList)
             }
         }
     }

@@ -5,10 +5,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-class BaseViewHolder(private val view: View): RecyclerView.ViewHolder(view){
+class BaseViewHolder<D>(private val view: View):
+    RecyclerView.ViewHolder(view) where D: ViewDataBinding{
 
     fun initBindView(callbackViewHolder: (binding: ViewDataBinding) -> Unit){
-        val viewBinding: ViewDataBinding = DataBindingUtil.bind(view)!!
+        val viewBinding: D = DataBindingUtil.bind(view)!!
         callbackViewHolder(viewBinding)
     }
 }
