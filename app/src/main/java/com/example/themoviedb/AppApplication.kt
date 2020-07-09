@@ -14,7 +14,7 @@ open class AppApplication: Application() {
         initKoinComponent()
     }
 
-    fun initKoinComponent(){
+    private fun initKoinComponent(){
         startKoin {
             androidLogger()
             androidContext(this@AppApplication)

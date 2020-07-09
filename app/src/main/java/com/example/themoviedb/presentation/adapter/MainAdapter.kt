@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-class MainAdapter<L,D>(
+@Suppress("UNCHECKED_CAST")
+class MainAdapter<L, D>(
     private val view: Int): RecyclerView.Adapter<BaseViewHolder<D>>() where D: ViewDataBinding{
 
     var adapterCallback: ((view: D, position: Int, list: MutableList<L>?) -> Unit)? = null

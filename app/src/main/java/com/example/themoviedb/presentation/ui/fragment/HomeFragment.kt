@@ -1,23 +1,24 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.themoviedb.BuildConfig
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.databinding.ItemContentBinding
 import com.example.themoviedb.presentation.adapter.MainAdapter
+import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.HomeViewModel
 import com.example.themoviedb.remote.remotemodel.MovieModel
-import kotlinx.android.synthetic.main.item_content.view.*
 
 class HomeFragment : Fragment() {
 
@@ -64,14 +65,25 @@ class HomeFragment : Fragment() {
                 mainAdapter.initializeAdapterData(it.results)
                 mainAdapter.apply {
                     initializeAdapterData(it.results)
-                    this.adapterCallback = { view, position, list -> view.itemTextView.text = list?.get(position)?.title }
+                    this.adapterCallback = { view, position, list ->
+                        createPosterCard(position, list!!, view.itemImageView)
+                    }
                 }
             }
         })
     }
 
+    private fun createPosterCard(position: Int, list: MutableList<MovieModel>, view: ImageView){
+        ImageHelper.render(
+            this@HomeFragment.requireContext(),
+            BASE_HTTP + list.get(position).posterPath,
+            view
+        )
+    }
+
     companion object{
         const val CONTENT_HOLDER = R.layout.item_content
+        const val BASE_HTTP = "http://image.tmdb.org/t/p/w185"
     }
 }
 
