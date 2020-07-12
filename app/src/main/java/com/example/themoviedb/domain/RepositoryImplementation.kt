@@ -1,6 +1,8 @@
 package com.example.themoviedb.domain
 
-interface RepositoryImplementation {
+import com.example.themoviedb.remote.remotemodel.ResultModel
 
-    fun fetchData()
+interface RepositoryImplementation<T> {
+
+    suspend fun fetchData(callbackService: suspend () -> T?): T?
 }

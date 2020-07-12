@@ -1,7 +1,6 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.presentation.adapter.HomeAdapter
-import com.example.themoviedb.presentation.util.ImageHelper
-import com.example.themoviedb.presentation.viewmodel.HomeViewModel
+import com.example.themoviedb.presentation.adapter.home.HomeAdapter
+import com.example.themoviedb.presentation.adapter.home.HomeAdapterContainer
+import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
+import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
 import com.example.themoviedb.remote.remotemodel.MovieModel
 import org.koin.android.ext.android.inject
 
@@ -22,19 +22,21 @@ class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
+
     private val homeAdapter: HomeAdapter by inject()
+    private val viewModelFactory: ViewModelFactory by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = HomeFragmentBinding.inflate(inflater).apply{
             this.lifecycleOwner = this@HomeFragment
         }
-
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(activity!!).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(
+            activity!!, viewModelFactory).get(HomeViewModel::class.java)
     }
 
     override fun onStart() {
@@ -68,17 +70,14 @@ class HomeFragment : Fragment() {
         homeAdapter.apply {
             this.initializeAdapterData(model)
             this.adapterCallback = { view, position, list ->
-                createPosterCard(position, list!!, view.itemImageView)
+                HomeAdapterContainer.createPosterCard(
+                    context = this@HomeFragment.requireContext(),
+                    position = position,
+                    list = list!!,
+                    view = view.itemImageView)
             }
         }
     }
 
-    private fun createPosterCard(position: Int, list: MutableList<MovieModel>, view: ImageView){
-        ImageHelper.render(
-            this@HomeFragment.requireContext(),
-            list.get(position).posterPath,
-            view
-        )
-    }
 }
 

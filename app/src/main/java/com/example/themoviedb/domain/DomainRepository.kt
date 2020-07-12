@@ -9,7 +9,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 class DomainRepository(
-    private val remoteProject: RemoteProject) {
+    private val remoteProject: RemoteProject): RepositoryImplementation<ResultModel> {
 
     private var scope: CoroutineScope
     private val job = SupervisorJob()
@@ -18,7 +18,7 @@ class DomainRepository(
         scope = CoroutineScope(job + Dispatchers.Main)
     }
 
-    private suspend fun fetchData(callbackService: suspend () -> ResultModel?):
+    override suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
 
     suspend fun remoteService(): ResultModel? {

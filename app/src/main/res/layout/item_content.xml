@@ -4,7 +4,7 @@
     <data>
         <variable
             name="content"
-            type="com.example.themoviedb.presentation.viewmodel.HomeViewModel" />
+            type="com.example.themoviedb.presentation.viewmodel.home.HomeViewModel" />
     </data>
     <LinearLayout
         android:orientation="vertical"

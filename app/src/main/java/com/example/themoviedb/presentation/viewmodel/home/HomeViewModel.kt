@@ -1,4 +1,4 @@
-package com.example.themoviedb.presentation.viewmodel
+package com.example.themoviedb.presentation.viewmodel.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,18 +12,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val domainRepository: DomainRepository) : ViewModel() {
 
-    private var remoteProject: RemoteProject
-    private var serviceApi: ServiceApi
-    private var domainRepository: DomainRepository
     private var scope: CoroutineScope
 
     init{
         scope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
-        serviceApi = ServiceApi()
-        remoteProject = RemoteProject(serviceApi)
-        domainRepository = DomainRepository(remoteProject)
         initNetworkRequest()
     }
 

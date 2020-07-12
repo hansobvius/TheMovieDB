@@ -13,8 +13,14 @@ import com.example.themoviedb.remote.remotemodel.MovieModel
 abstract class BaseAdapter<O, D>:
     RecyclerView.Adapter<BaseViewHolder<D>>() where O : ModelContract, D: ViewDataBinding {
 
-    private var objectList: MutableList<O>? = mutableListOf()
+    private var objectList: MutableList<O>? = null
+
+    init{ _BaseAdapter() }
+
+    private fun _BaseAdapter(){ objectList = mutableListOf() }
+
     abstract var adapterCallback: ((view: D, position: Int, list: MutableList<O>?) -> Unit)?
+    abstract var viewContainer: Int?
 
     abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?)
 
@@ -25,11 +31,11 @@ abstract class BaseAdapter<O, D>:
 
     override fun getItemCount(): Int = objectList?.count() ?: OPTIONAL_SIZE_VALUE
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<D> =
+        BaseViewHolder(LayoutInflater.from(parent.context).inflate(viewContainer!!, parent, false))
+
     override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
-        holder.initBindView { view ->
-            view.apply{
-                viewBinding(this as D, position, objectList)
-            }
+        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList) }
         }
     }
 
