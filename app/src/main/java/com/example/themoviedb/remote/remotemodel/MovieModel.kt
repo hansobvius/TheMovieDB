@@ -15,4 +15,4 @@ class MovieModel(
     @SerializedName("title")val title: String,
     @SerializedName("vote_avarage")val voteAvarage: Float,
     @SerializedName("overview")val overview: String,
-    @SerializedName("release_date")val releaseDate: String)
+    @SerializedName("release_date")val releaseDate: String): ModelContract

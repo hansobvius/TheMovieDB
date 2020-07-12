@@ -11,20 +11,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.themoviedb.BuildConfig
-import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.databinding.ItemContentBinding
-import com.example.themoviedb.presentation.adapter.MainAdapter
+import com.example.themoviedb.presentation.adapter.HomeAdapter
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.HomeViewModel
 import com.example.themoviedb.remote.remotemodel.MovieModel
+import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
-    private lateinit var mainAdapter: MainAdapter<MovieModel, ItemContentBinding>
     private lateinit var binding: HomeFragmentBinding
+    private val homeAdapter: HomeAdapter by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = HomeFragmentBinding.inflate(inflater).apply{
@@ -48,42 +46,39 @@ class HomeFragment : Fragment() {
     }
 
     private fun initAdapter(){
-        mainAdapter = MainAdapter(CONTENT_HOLDER)
         binding.recyclerView.apply{
             this.clipToPadding = true
             this.layoutManager = LinearLayoutManager(
                 this@HomeFragment.requireContext(),
                 RecyclerView.HORIZONTAL,
                 false)
-            this.adapter = mainAdapter
+            this.adapter = homeAdapter
         }
     }
 
     private fun initObserver(){
         viewModel.popularMovies.observe(this, Observer {value ->
-            value.let {
-                mainAdapter.initializeAdapterData(it.results)
-                mainAdapter.apply {
-                    initializeAdapterData(it.results)
-                    this.adapterCallback = { view, position, list ->
-                        createPosterCard(position, list!!, view.itemImageView)
-                    }
-                }
+            value?.let {
+               createRowAdapter(it.results)
             }
         })
+    }
+
+    private fun createRowAdapter(model: List<MovieModel>){
+        homeAdapter.apply {
+            this.initializeAdapterData(model)
+            this.adapterCallback = { view, position, list ->
+                createPosterCard(position, list!!, view.itemImageView)
+            }
+        }
     }
 
     private fun createPosterCard(position: Int, list: MutableList<MovieModel>, view: ImageView){
         ImageHelper.render(
             this@HomeFragment.requireContext(),
-            BASE_HTTP + list.get(position).posterPath,
+            list.get(position).posterPath,
             view
         )
-    }
-
-    companion object{
-        const val CONTENT_HOLDER = R.layout.item_content
-        const val BASE_HTTP = "http://image.tmdb.org/t/p/w185"
     }
 }
 
