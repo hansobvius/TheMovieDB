@@ -3,20 +3,9 @@ package com.example.themoviedb.domain
 import android.util.Log
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.remotemodel.ResultModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
 
 class DomainRepository(
     private val remoteProject: RemoteProject): RepositoryImplementation<ResultModel> {
-
-    private var scope: CoroutineScope
-    private val job = SupervisorJob()
-
-    init{
-        scope = CoroutineScope(job + Dispatchers.Main)
-    }
 
     override suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
