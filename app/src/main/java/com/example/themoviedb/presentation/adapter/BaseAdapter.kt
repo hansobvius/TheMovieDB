@@ -41,7 +41,5 @@ abstract class BaseAdapter<O, D>:
 
     companion object{
         const val OPTIONAL_SIZE_VALUE = 0
-        const val VIEW_TYPE_0 = 0
-        const val VIEW_TYPE_1 = 1
     }
 }
