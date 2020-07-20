@@ -36,15 +36,8 @@ abstract class BaseAdapter<O, D>:
         BaseViewHolder(LayoutInflater.from(parent.context).inflate(viewContainer()!!, parent, false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
-        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList) }
-        }
+        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList) } }
     }
-
-    override fun getItemViewType(position: Int): Int =
-        when (objectList?.get(position)) {
-            is O -> VIEW_TYPE_1
-            else -> VIEW_TYPE_0
-        }
 
     companion object{
         const val OPTIONAL_SIZE_VALUE = 0
