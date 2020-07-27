@@ -1,35 +1,43 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.presentation.adapter.home.HomeAdapter
-import com.example.themoviedb.presentation.adapter.home.HomeAdapterContainer
+import com.example.themoviedb.presentation.adapter.home.RowAdapter
+import com.example.themoviedb.presentation.adapter.home.viewholder.HomeAdapterContainer
+import com.example.themoviedb.presentation.adapter.home.viewholder.RowAdapterContainer
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
-import com.example.themoviedb.remote.remotemodel.MovieModel
+import com.example.themoviedb.remote.model.HeaderModel
+import com.example.themoviedb.remote.model.MovieModel
 import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: HomeFragmentBinding
+    private lateinit var header: HeaderContentBinding
 
     private val homeAdapter: HomeAdapter by inject()
+    private val rowAdapter: RowAdapter by inject()
     private val viewModelFactory: ViewModelFactory by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = HomeFragmentBinding.inflate(inflater).apply{
             this.lifecycleOwner = this@HomeFragment
         }
+        header = HeaderContentBinding.inflate(inflater)
         return binding.root
     }
 
@@ -54,7 +62,8 @@ class HomeFragment : Fragment() {
                 this@HomeFragment.requireContext(),
                 RecyclerView.HORIZONTAL,
                 false)
-            this.adapter = homeAdapter
+            this.setHasFixedSize(true)
+            this.adapter = rowAdapter
         }
     }
 
@@ -67,14 +76,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun createRowAdapter(model: List<MovieModel>){
-        homeAdapter.apply {
-            this.initializeAdapterData(model)
+        Log.i("TEST", "list size ${model.count()}")
+        rowAdapter.apply{
+            this.initializeAdapterData(listOf(HeaderModel("Popular")))
             this.adapterCallback = { view, position, list ->
-                HomeAdapterContainer.createPosterCard(
+                Log.i("TEST", "adapterCallback list size ${list!!.count()}")
+                RowAdapterContainer.createRowContainer(
                     context = this@HomeFragment.requireContext(),
-                    position = position,
-                    list = list!!,
-                    view = view.itemImageView)
+                    title = list[position].title!!,
+                    titleView = view.headerTitle,
+                    listView = view.movieList,
+                    homeAdapter = homeAdapter,
+                    movieList = model.toMutableList()
+                )
             }
         }
     }

@@ -5,12 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.domain.DomainRepository
-import com.example.themoviedb.remote.RemoteProject
-import com.example.themoviedb.remote.remotemodel.ResultModel
-import com.example.themoviedb.remote.service.ServiceApi
-import kotlinx.coroutines.CoroutineScope
+import com.example.themoviedb.remote.model.ResultModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val domainRepository: DomainRepository) : ViewModel() {

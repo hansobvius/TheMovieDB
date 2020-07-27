@@ -1,13 +1,10 @@
 package com.example.themoviedb.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.themoviedb.databinding.ItemContentBinding
-import com.example.themoviedb.remote.remotemodel.ModelContract
-import com.example.themoviedb.remote.remotemodel.MovieModel
+import com.example.themoviedb.remote.model.ModelContract
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseAdapter<O, D>:
