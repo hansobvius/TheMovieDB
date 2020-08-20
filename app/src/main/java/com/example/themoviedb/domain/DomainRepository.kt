@@ -2,7 +2,7 @@ package com.example.themoviedb.domain
 
 import android.util.Log
 import com.example.themoviedb.remote.RemoteProject
-import com.example.themoviedb.remote.model.ResultModel
+import com.example.themoviedb.presentation.model.ResultModel
 
 class DomainRepository(
     private val remoteProject: RemoteProject): RepositoryImplementation<ResultModel> {

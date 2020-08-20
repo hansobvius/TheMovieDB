@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.example.themoviedb.remote.model.ModelContract
+import com.example.themoviedb.presentation.model.ModelContract
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseAdapter<O, D>:

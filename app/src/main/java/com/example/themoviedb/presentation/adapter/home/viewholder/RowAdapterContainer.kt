@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.presentation.adapter.home.HomeAdapter
-import com.example.themoviedb.remote.model.MovieModel
+import com.example.themoviedb.presentation.model.MovieModel
 
 object RowAdapterContainer {
 
@@ -24,7 +24,7 @@ object RowAdapterContainer {
                     context,
                     RecyclerView.HORIZONTAL,
                     false)
-                this.isNestedScrollingEnabled = false
+                this.isNestedScrollingEnabled = true
                 this.adapter = homeAdapter
             }
             homeAdapter.apply {

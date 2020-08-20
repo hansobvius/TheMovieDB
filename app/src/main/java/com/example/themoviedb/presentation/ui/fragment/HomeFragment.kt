@@ -3,7 +3,6 @@ package com.example.themoviedb.presentation.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -15,12 +14,11 @@ import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.presentation.adapter.home.HomeAdapter
 import com.example.themoviedb.presentation.adapter.home.RowAdapter
-import com.example.themoviedb.presentation.adapter.home.viewholder.HomeAdapterContainer
 import com.example.themoviedb.presentation.adapter.home.viewholder.RowAdapterContainer
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
-import com.example.themoviedb.remote.model.HeaderModel
-import com.example.themoviedb.remote.model.MovieModel
+import com.example.themoviedb.presentation.model.HeaderModel
+import com.example.themoviedb.presentation.model.MovieModel
 import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {

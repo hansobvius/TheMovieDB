@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import android.widget.ImageView
 import com.example.themoviedb.presentation.util.ImageHelper
-import com.example.themoviedb.remote.model.MovieModel
+import com.example.themoviedb.presentation.model.MovieModel
 
 object HomeAdapterContainer {
 

@@ -4,7 +4,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.example.themoviedb.R
 import com.example.themoviedb.presentation.adapter.BaseAdapter
-import com.example.themoviedb.remote.model.ModelContract
+import com.example.themoviedb.presentation.model.ModelContract
 
 abstract class BaseFragment<L, D, A: BaseAdapter<L,D>>: Fragment() where L: ModelContract, D: ViewDataBinding {
 

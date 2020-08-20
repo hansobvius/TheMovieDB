@@ -1,11 +1,9 @@
 package com.example.themoviedb.presentation.adapter.home
 
-import android.graphics.Movie
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.RowContentBinding
 import com.example.themoviedb.presentation.adapter.BaseAdapter
-import com.example.themoviedb.remote.model.HeaderModel
-import com.example.themoviedb.remote.model.MovieModel
+import com.example.themoviedb.presentation.model.HeaderModel
 
 class RowAdapter: BaseAdapter<HeaderModel, RowContentBinding>() {
 
