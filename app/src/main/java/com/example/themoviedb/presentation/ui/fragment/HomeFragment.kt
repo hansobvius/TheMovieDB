@@ -58,9 +58,9 @@ class HomeFragment : Fragment() {
             this.clipToPadding = true
             this.layoutManager = LinearLayoutManager(
                 this@HomeFragment.requireContext(),
-                RecyclerView.HORIZONTAL,
+                RecyclerView.VERTICAL,
                 false)
-            this.setHasFixedSize(true)
+            this.setHasFixedSize(false)
             this.adapter = rowAdapter
         }
     }
