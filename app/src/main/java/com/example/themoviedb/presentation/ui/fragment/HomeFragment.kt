@@ -1,10 +1,10 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +15,9 @@ import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.presentation.adapter.home.HomeAdapter
 import com.example.themoviedb.presentation.adapter.home.RowAdapter
 import com.example.themoviedb.presentation.adapter.home.viewholder.RowAdapterContainer
+import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
-import com.example.themoviedb.presentation.model.HeaderModel
-import com.example.themoviedb.presentation.model.MovieModel
 import org.koin.android.ext.android.inject
 
 class HomeFragment : Fragment() {
@@ -68,25 +67,25 @@ class HomeFragment : Fragment() {
     private fun initObserver(){
         viewModel.popularMovies.observe(this, Observer {value ->
             value?.let {
-               createRowAdapter(it.results)
+               createRowAdapter(listOf(it))
             }
         })
     }
 
-    private fun createRowAdapter(model: List<MovieModel>){
-        Log.i("TEST", "list size ${model.count()}")
+    private fun createRowAdapter(model: List<CategoryModel>){
         rowAdapter.apply{
-            this.initializeAdapterData(listOf(HeaderModel("Popular")))
+            this.initializeAdapterData(model)
             this.adapterCallback = { view, position, list ->
-                Log.i("TEST", "adapterCallback list size ${list!!.count()}")
                 RowAdapterContainer.createRowContainer(
                     context = this@HomeFragment.requireContext(),
-                    title = list[position].title!!,
+                    title = model.get(position).category,
                     titleView = view.headerTitle,
                     listView = view.movieList,
                     homeAdapter = homeAdapter,
-                    movieList = model.toMutableList()
-                )
+                    movieList = model.get(position).result.results.toMutableList()
+                ){
+                    Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -5,16 +5,10 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiEndpoint {
+interface TopRatedApi {
 
-    @GET("popular")
-    suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String,
-        @Query("language")language: String,
-        @Query("page") page: Int): Response<ResultModel>
-
-    @GET
-    suspend fun getMostRated(
+    @GET("top_rated")
+    suspend fun getTopRated(
         @Query("api_key") apiKey: String,
         @Query("language")language: String,
         @Query("page") page: Int): Response<ResultModel>

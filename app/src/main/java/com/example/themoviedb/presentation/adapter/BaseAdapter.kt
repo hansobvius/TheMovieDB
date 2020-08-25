@@ -8,9 +8,9 @@ import com.example.themoviedb.presentation.model.ModelContract
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseAdapter<O, D>:
-    RecyclerView.Adapter<BaseViewHolder<D>>() where O : ModelContract, D: ViewDataBinding {
+    RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O : ModelContract, D: ViewDataBinding {
 
-    private var objectList: MutableList<O>? = null
+    override var objectList: MutableList<O>? = null
 
     init{ _BaseAdapter() }
 

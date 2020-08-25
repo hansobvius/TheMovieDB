@@ -4,7 +4,7 @@ import com.example.themoviedb.remote.service.ServiceApi
 
 class ApiImplementation(private val serviceApi: ServiceApi) {
 
-    val SERVICE: ApiEndpoint by lazy{
-        serviceApi.getApiService().create(ApiEndpoint::class.java)
+    val SERVICE: PopularApi by lazy{
+        serviceApi.getApiService().create(PopularApi::class.java)
     }
 }

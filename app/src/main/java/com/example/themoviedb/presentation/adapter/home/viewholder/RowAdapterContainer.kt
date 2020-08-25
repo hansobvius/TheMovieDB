@@ -16,7 +16,8 @@ object RowAdapterContainer {
         titleView: TextView,
         listView: RecyclerView,
         homeAdapter: HomeAdapter,
-        movieList: MutableList<MovieModel>?){
+        movieList: MutableList<MovieModel>?,
+        onClick: ((position: Int) -> Unit)){
             titleView.text = title
             listView.apply{
                 this.clipToPadding = true
@@ -28,7 +29,6 @@ object RowAdapterContainer {
                 this.adapter = homeAdapter
             }
             homeAdapter.apply {
-                Log.i("TEST", "createRowContainer list size: ${movieList!!.count()}")
                 this.initializeAdapterData(movieList!!.toList())
                 this.adapterCallback = { view, position, list ->
                     HomeAdapterContainer.createPosterCard(
@@ -36,6 +36,9 @@ object RowAdapterContainer {
                         position = position,
                         list = list!!,
                         view = view.itemImageView)
+                    view.itemImageView.setOnClickListener{
+                        onClick(position)
+                    }
                 }
             }
     }
