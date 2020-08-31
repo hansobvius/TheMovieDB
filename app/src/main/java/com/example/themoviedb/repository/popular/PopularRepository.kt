@@ -1,19 +1,23 @@
-package com.example.themoviedb.domain
+package com.example.themoviedb.repository.popular
 
 import android.util.Log
+import com.example.themoviedb.repository.RepositoryImplementation
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.presentation.model.ResultModel
+import com.example.themoviedb.remote.endpoint.PopularApi
 
-class DomainRepository(
-    private val remoteProject: RemoteProject): RepositoryImplementation<ResultModel> {
+// TODO - declare a generic type to pass api endpoint
+class PopularRepository(
+    private val remoteProject: RemoteProject<PopularApi>): RepositoryImplementation<ResultModel> {
 
     override suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
 
-    suspend fun remoteService(): ResultModel? {
+    // TODO - remove function to properly get particular api interface function
+    override suspend fun remoteService(): ResultModel? {
         return fetchData{
             val data = remoteProject
-                .fetchPopularMovies()
+                .fetchServiceApi()
                 .SERVICE
                 .getPopularMovies(API_KEY, LANGUAGE, PAGE)
             data.let{

@@ -8,7 +8,7 @@ import com.example.themoviedb.presentation.model.ModelContract
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseAdapter<O, D>:
-    RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O : ModelContract, D: ViewDataBinding {
+    RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O: ModelContract, D: ViewDataBinding {
 
     override var objectList: MutableList<O>? = null
 
@@ -22,6 +22,7 @@ abstract class BaseAdapter<O, D>:
 
     abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?)
 
+    // TODO - remove previus list
     fun initializeAdapterData(list: List<O>){
         this.objectList?.addAll(list)
         this.notifyDataSetChanged()

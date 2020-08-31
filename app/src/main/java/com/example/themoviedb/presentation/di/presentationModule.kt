@@ -11,5 +11,5 @@ val presentationModule = module {
 
     single<RowAdapter> { RowAdapter() }
 
-    single<ViewModelFactory> { ViewModelFactory(get()) }
+//    single<ViewModelFactory> { ViewModelFactory(get(), get()) }
 }
