@@ -15,9 +15,9 @@ import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
-import com.example.themoviedb.presentation.adapter.home.HomeAdapter
 import com.example.themoviedb.presentation.adapter.home.RowAdapter
-import com.example.themoviedb.presentation.adapter.home.viewholder.RowAdapterContainer
+import com.example.themoviedb.presentation.adapter.home.SectionAdapter
+import com.example.themoviedb.presentation.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
@@ -34,8 +34,8 @@ class HomeFragment : Fragment() {
     private lateinit var header: HeaderContentBinding
     private lateinit var viewModelFactory: ViewModelFactory
 
-    private val homeAdapter: HomeAdapter by inject()
     private val rowAdapter: RowAdapter by inject()
+    private val sectionAdapter: SectionAdapter by inject()
 //    private val viewModelFactory: ViewModelFactory by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,7 +72,7 @@ class HomeFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false)
             this.setHasFixedSize(false)
-            this.adapter = rowAdapter
+            this.adapter = sectionAdapter
         }
     }
 
@@ -85,17 +85,17 @@ class HomeFragment : Fragment() {
     }
 
     private fun createRowAdapter(model: List<CategoryModel>){
-        Log.i("TEST", "row popular ${model.get(0).result.results.get(0).title} / row rateded ${model.get(1).result.results.get(1).title}")
-        rowAdapter.apply{
+        sectionAdapter.apply{
             this.initializeAdapterData(model)
             this.adapterCallback = { view, position, list ->
-                RowAdapterContainer.createRowContainer(
+                Log.i("TEST", "Row container created ${model.get(position).category}")
+                SectionAdapterContainer.createRowContainer(
                     context = this@HomeFragment.requireContext(),
                     title = model.get(position).category,
                     titleView = view.headerTitle,
                     listView = view.movieList,
-                    homeAdapter = homeAdapter,
-                    movieList = list?.get(position)?.result?.results?.toMutableList()
+                    rowAdapter = rowAdapter,
+                    movieList = list!!.get(position).result.results
                 ){
                     Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
                 }

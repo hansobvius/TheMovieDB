@@ -20,9 +20,9 @@ abstract class BaseAdapter<O, D>:
 
     abstract fun viewContainer(): Int?
 
-    abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?)
+    abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?, viewType: Int)
 
-    // TODO - remove previus list
+    // FIXME - duplicate all list
     fun initializeAdapterData(list: List<O>){
         this.objectList?.addAll(list)
         this.notifyDataSetChanged()
@@ -34,7 +34,7 @@ abstract class BaseAdapter<O, D>:
         BaseViewHolder(LayoutInflater.from(parent.context).inflate(viewContainer()!!, parent, false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
-        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList) } }
+        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList, holder.itemViewType) } }
     }
 
     companion object{
