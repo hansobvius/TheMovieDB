@@ -17,25 +17,25 @@ object SectionAdapterContainer {
         rowAdapter: RowAdapter,
         movieList: List<MovieModel>?,
         listener: ((position: Int) -> Unit)){
-            titleView.text = title
-            listView.apply{
-                this.clipToPadding = true
-                this.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                this.isNestedScrollingEnabled = true
-                this.adapter = rowAdapter
-            }
-            rowAdapter.apply {
-                this.initializeAdapterData(movieList!!)
-                this.adapterCallback = { view, position, list ->
-                    RowAdapterContainer.createPosterCard(
-                        context = context,
-                        position = position,
-                        list = list!!.toList(),
-                        view = view.itemImageView)
-                    view.itemImageView.setOnClickListener{
-                        listener(position)
-                    }
+        titleView.text = title
+        listView.apply{
+            this.clipToPadding = true
+            this.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            this.isNestedScrollingEnabled = true
+            this.adapter = rowAdapter
+        }
+        rowAdapter.apply {
+            this.submitList(movieList!!)
+            this.adapterCallback = { view, position, list ->
+                RowAdapterContainer.createPosterCard(
+                    context = context,
+                    position = position,
+                    list = list!!.toList(),
+                    view = view.itemImageView)
+                view.itemImageView.setOnClickListener{
+                    listener(position)
                 }
             }
+        }
     }
 }

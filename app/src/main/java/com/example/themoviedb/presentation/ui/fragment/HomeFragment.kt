@@ -18,6 +18,7 @@ import com.example.themoviedb.repository.topRated.TopRatedRepository
 import com.example.themoviedb.presentation.adapter.home.RowAdapter
 import com.example.themoviedb.presentation.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.adapter.home.viewholder.SectionAdapterContainer
+import com.example.themoviedb.presentation.listadapter.SectionListAdapter
 import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
@@ -37,6 +38,8 @@ class HomeFragment : Fragment() {
     private val rowAdapter: RowAdapter by inject()
     private val sectionAdapter: SectionAdapter by inject()
 //    private val viewModelFactory: ViewModelFactory by inject()
+
+    private val sectionListAdapter: SectionListAdapter? = SectionListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = HomeFragmentBinding.inflate(inflater).apply{
@@ -72,7 +75,7 @@ class HomeFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false)
             this.setHasFixedSize(false)
-            this.adapter = sectionAdapter
+            this.adapter = sectionListAdapter
         }
     }
 
@@ -85,22 +88,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun createRowAdapter(model: List<CategoryModel>){
-        sectionAdapter.apply{
-            this.initializeAdapterData(model)
-            this.adapterCallback = { view, position, list ->
-                Log.i("TEST", "Row container created ${model.get(position).category}")
-                SectionAdapterContainer.createRowContainer(
-                    context = this@HomeFragment.requireContext(),
-                    title = model.get(position).category,
-                    titleView = view.headerTitle,
-                    listView = view.movieList,
-                    rowAdapter = rowAdapter,
-                    movieList = list!!.get(position).result.results
-                ){
-                    Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        sectionListAdapter!!.submitList(model)
     }
 
 }

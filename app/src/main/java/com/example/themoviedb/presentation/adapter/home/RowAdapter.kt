@@ -2,6 +2,7 @@ package com.example.themoviedb.presentation.adapter.home
 
 import android.service.voice.AlwaysOnHotwordDetector
 import android.util.Log
+import androidx.recyclerview.widget.DiffUtil
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.ItemContentBinding
 import com.example.themoviedb.presentation.adapter.BaseAdapter
@@ -15,6 +16,7 @@ class RowAdapter: BaseAdapter<MovieModel, ItemContentBinding>() {
     override fun viewContainer(): Int? = R.layout.item_content
 
     override fun viewBinding(binding: ItemContentBinding, position: Int, list: MutableList<MovieModel>?, viewType: Int) {
+        Log.i("TEST", "RowAdapter list size: ${list!!.size}")
         adapterCallback?.invoke(binding, position, list)
     }
 }
