@@ -3,6 +3,8 @@ package com.example.themoviedb.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.presentation.model.ModelContract
 
@@ -10,11 +12,14 @@ import com.example.themoviedb.presentation.model.ModelContract
 abstract class BaseAdapter<O, D>:
     RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O: ModelContract, D: ViewDataBinding {
 
-    override var objectList: MutableList<O>? = null
+    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this, object : DiffUtil.ItemCallback<O>() {
+        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean =
+            oldItem === newItem
 
-    init{ _BaseAdapter() }
-
-    private fun _BaseAdapter(){ objectList = mutableListOf() }
+        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean =
+            oldItem.equals(newItem)
+        }
+    )
 
     abstract var adapterCallback: ((view: D, position: Int, list: MutableList<O>?) -> Unit)?
 
@@ -22,19 +27,17 @@ abstract class BaseAdapter<O, D>:
 
     abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?, viewType: Int)
 
-    // FIXME - duplicate all list
     fun initializeAdapterData(list: List<O>){
-        this.objectList?.addAll(list)
-        this.notifyDataSetChanged()
+        mDiffList?.submitList(list)
     }
 
-    override fun getItemCount(): Int = objectList?.count() ?: OPTIONAL_SIZE_VALUE
+    override fun getItemCount(): Int = mDiffList?.currentList?.size ?: OPTIONAL_SIZE_VALUE
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<D> =
         BaseViewHolder(LayoutInflater.from(parent.context).inflate(viewContainer()!!, parent, false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
-        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList, holder.itemViewType) } }
+        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, mDiffList?.currentList, holder.itemViewType) } }
     }
 
     companion object{

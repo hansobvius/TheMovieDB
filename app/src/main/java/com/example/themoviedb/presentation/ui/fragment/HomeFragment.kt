@@ -94,7 +94,6 @@ class HomeFragment : Fragment() {
                     title = model.get(position).category,
                     titleView = view.headerTitle,
                     listView = view.movieList,
-                    rowAdapter = rowAdapter,
                     movieList = list!!.get(position).result.results
                 ){
                     Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
