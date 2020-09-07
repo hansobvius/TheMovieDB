@@ -32,7 +32,7 @@ class HomeViewModel(
             val popular = async {
                 popularRepository.remoteService()
             }.await()
-            val topRated = async (start = CoroutineStart.LAZY) {
+            val topRated = async {
                 topRatedRepository.remoteService()
             }.await()
             val upComing = async {
