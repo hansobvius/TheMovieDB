@@ -1,17 +1,20 @@
 package com.example.themoviedb.presentation.adapter.home
 
+import android.service.voice.AlwaysOnHotwordDetector
+import android.util.Log
 import com.example.themoviedb.R
-import com.example.themoviedb.databinding.RowContentBinding
+import com.example.themoviedb.databinding.ItemContentBinding
 import com.example.themoviedb.presentation.adapter.BaseAdapter
 import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.model.MovieModel
 
-class RowAdapter: BaseAdapter<CategoryModel, RowContentBinding>() {
+class RowAdapter: BaseAdapter<MovieModel, ItemContentBinding>() {
 
-    override var adapterCallback: ((view: RowContentBinding, position: Int, list: MutableList<CategoryModel>?) -> Unit)? = null
+    override var adapterCallback: ((view: ItemContentBinding, position: Int, list: MutableList<MovieModel>?) -> Unit)? = null
 
-    override fun viewContainer(): Int? = R.layout.row_content
+    override fun viewContainer(): Int? = R.layout.item_content
 
-    override fun viewBinding(binding: RowContentBinding, position: Int, list: MutableList<CategoryModel>?) {
+    override fun viewBinding(binding: ItemContentBinding, position: Int, list: MutableList<MovieModel>?, viewType: Int) {
         adapterCallback?.invoke(binding, position, list)
     }
 }

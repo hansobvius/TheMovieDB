@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface UpComingApi {
 
     @GET("upcoming")
-    suspend fun getTopRated(
+    suspend fun getUpComing(
         @Query("api_key") apiKey: String,
         @Query("language")language: String,
         @Query("page") page: Int): Response<ResultModel>

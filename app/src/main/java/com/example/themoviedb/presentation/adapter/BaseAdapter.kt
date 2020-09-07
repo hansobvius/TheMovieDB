@@ -3,37 +3,38 @@ package com.example.themoviedb.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.presentation.model.ModelContract
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseAdapter<O, D>:
-    RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O : ModelContract, D: ViewDataBinding {
+    RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O: ModelContract, D: ViewDataBinding {
 
-    override var objectList: MutableList<O>? = null
-
-    init{ _BaseAdapter() }
-
-    private fun _BaseAdapter(){ objectList = mutableListOf() }
+    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this@BaseAdapter, object : DiffUtil.ItemCallback<O>() {
+        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean = oldItem === newItem
+        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean = oldItem.equals(newItem)
+        }
+    )
 
     abstract var adapterCallback: ((view: D, position: Int, list: MutableList<O>?) -> Unit)?
 
     abstract fun viewContainer(): Int?
 
-    abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?)
+    abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?, viewType: Int)
 
-    fun initializeAdapterData(list: List<O>){
-        this.objectList?.addAll(list)
-        this.notifyDataSetChanged()
+    override fun initializeAdapterData(list: List<O>){
+        mDiffList?.submitList(list)
     }
 
-    override fun getItemCount(): Int = objectList?.count() ?: OPTIONAL_SIZE_VALUE
+    override fun getItemCount(): Int = mDiffList?.currentList?.size ?: OPTIONAL_SIZE_VALUE
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<D> =
         BaseViewHolder(LayoutInflater.from(parent.context).inflate(viewContainer()!!, parent, false))
 
     override fun onBindViewHolder(holder: BaseViewHolder<D>, position: Int) {
-        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, objectList) } }
+        holder.initBindView { view -> view.apply{ viewBinding(this as D, position, mDiffList?.currentList, holder.itemViewType) } }
     }
 
     companion object{

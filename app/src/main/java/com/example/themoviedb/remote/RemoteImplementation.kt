@@ -1,10 +1,7 @@
 package com.example.themoviedb.remote
 
-import com.example.themoviedb.remote.endpoint.ApiImplementation
+interface RemoteImplementation<out T> {
 
-interface RemoteImplementation {
+    fun fetchServiceApi(): T
 
-    fun fetchPopularMovies(): ApiImplementation
-
-    fun fetchMostRatedMovies(): ApiImplementation
 }

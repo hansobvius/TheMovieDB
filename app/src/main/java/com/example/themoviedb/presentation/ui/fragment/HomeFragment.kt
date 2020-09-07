@@ -1,6 +1,7 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.presentation.adapter.home.HomeAdapter
-import com.example.themoviedb.presentation.adapter.home.RowAdapter
-import com.example.themoviedb.presentation.adapter.home.viewholder.RowAdapterContainer
+import com.example.themoviedb.presentation.adapter.home.SectionAdapter
+import com.example.themoviedb.presentation.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
@@ -26,8 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding: HomeFragmentBinding
     private lateinit var header: HeaderContentBinding
 
-    private val homeAdapter: HomeAdapter by inject()
-    private val rowAdapter: RowAdapter by inject()
+    private val sectionAdapter: SectionAdapter by inject()
     private val viewModelFactory: ViewModelFactory by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,29 +59,28 @@ class HomeFragment : Fragment() {
                 RecyclerView.VERTICAL,
                 false)
             this.setHasFixedSize(false)
-            this.adapter = rowAdapter
+            this.adapter = sectionAdapter
         }
     }
 
     private fun initObserver(){
-        viewModel.popularMovies.observe(this, Observer {value ->
+        viewModel.resultApi.observe(this, Observer { value ->
             value?.let {
-               createRowAdapter(listOf(it))
+               createRowAdapter(it)
             }
         })
     }
 
     private fun createRowAdapter(model: List<CategoryModel>){
-        rowAdapter.apply{
+        sectionAdapter.apply{
             this.initializeAdapterData(model)
             this.adapterCallback = { view, position, list ->
-                RowAdapterContainer.createRowContainer(
+                SectionAdapterContainer.createRowContainer(
                     context = this@HomeFragment.requireContext(),
                     title = model.get(position).category,
                     titleView = view.headerTitle,
                     listView = view.movieList,
-                    homeAdapter = homeAdapter,
-                    movieList = model.get(position).result.results.toMutableList()
+                    movieList = list!!.get(position).result.results
                 ){
                     Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
                 }

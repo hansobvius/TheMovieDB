@@ -9,8 +9,4 @@ val remoteModule = module {
     single<ServiceApi>{
         ServiceApi()
     }
-
-    single<RemoteProject>{
-        RemoteProject(get())
-    }
 }
