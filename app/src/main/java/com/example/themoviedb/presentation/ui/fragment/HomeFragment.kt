@@ -40,7 +40,10 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(
-            activity!!, viewModelFactory).get(HomeViewModel::class.java)
+            activity!!, viewModelFactory).get(HomeViewModel::class.java
+        ).also { viewModel ->
+            viewModel.initNetworkRequest()
+        }
     }
 
     override fun onStart() {
@@ -49,6 +52,11 @@ class HomeFragment : Fragment() {
             this.initAdapter()
             this.initObserver()
         }
+    }
+
+    override fun onPause(){
+        super.onPause()
+        viewModel.cancelOperation()
     }
 
     private fun initAdapter(){

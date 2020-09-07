@@ -5,6 +5,7 @@ import com.example.themoviedb.presentation.model.ResultModel
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.endpoint.UpComingApi
 import com.example.themoviedb.repository.RepositoryImplementation
+import com.example.themoviedb.repository.topRated.TopRatedRepository
 
 class UpComingRepository(
     private val remoteProject: RemoteProject<UpComingApi>): RepositoryImplementation<ResultModel> {
@@ -14,18 +15,13 @@ class UpComingRepository(
 
     override suspend fun remoteService(): ResultModel? = fetchData{
         remoteProject.fetchServiceApi().getApi.getUpComing(API_KEY, LANGUAGE, PAGE).let{ response ->
-                return@fetchData when(response.code()){
-                    200 -> {
-                        Log.i(OKHTTP_LOGGER, "Response: ${response.raw()}")
-                        response.body()
-                    }
-                    else -> {
-                        Log.i(OKHTTP_LOGGER, "ERROR")
-                        throw Exception("Error to fetch data")
-                    }
-                }
+            Log.i(OKHTTP_LOGGER, "${response.raw()}")
+            return@fetchData when(response.code()){
+                200 -> response.body()
+                else -> throw Exception("Error to fetch data ${this::class.java.name}")
             }
         }
+    }
 
 
     companion object{
