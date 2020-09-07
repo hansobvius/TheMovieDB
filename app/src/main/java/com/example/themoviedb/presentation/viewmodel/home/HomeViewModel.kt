@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
 import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.repository.upcoming.UpComingRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 // TODO - remove DomainRepository from ViewModel constructor
 class HomeViewModel(
     private val popularRepository: PopularRepository,
-    private val topRatedRepository: TopRatedRepository) : ViewModel() {
+    private val topRatedRepository: TopRatedRepository,
+    private val upComingRepository: UpComingRepository) : ViewModel() {
 
     init{ initNetworkRequest() }
 
@@ -24,7 +26,8 @@ class HomeViewModel(
         viewModelScope.launch(Dispatchers.Main){
             _resultApi.value = listOf(
                 CategoryModel("Popular", popularRepository.remoteService()!!),
-                CategoryModel("Top Rated", topRatedRepository.remoteService()!!)
+                CategoryModel("Top Rated", topRatedRepository.remoteService()!!),
+                CategoryModel("Up Coming", upComingRepository.remoteService()!!)
             )
         }
     }

@@ -12,25 +12,23 @@ class TopRatedRepository(
     override suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
 
-    override suspend fun remoteService(): ResultModel? {
-        return fetchData{
-            val data = remoteProject
+    override suspend fun remoteService(): ResultModel? = fetchData {
+            remoteProject
                 .fetchServiceApi()
-                .SERVICE
-                .getTopRated(API_KEY, LANGUAGE, PAGE)
-            data.let{
-                return@fetchData when(data.code()){
-                    200 -> {
-                        Log.i("TEST", "Response: ${data.body()}")
-                        data.body()
-                    }
-                    else -> {
-                        Log.i("TEST", "ERROR")
-                        throw Exception("Error to fetch data")
+                .getApi
+                .getTopRated(API_KEY, LANGUAGE, PAGE).let{ response ->
+                    return@fetchData when(response.code()){
+                        200 -> {
+                            Log.i("TEST", "Response: ${response.raw()}")
+                            response.body()
+                        }
+                        else -> {
+                            Log.i("TEST", "ERROR")
+                            throw Exception("Error to fetch data")
+                        }
                     }
                 }
-            }
-        }
+
     }
 
     companion object{

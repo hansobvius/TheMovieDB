@@ -1,13 +1,13 @@
-package com.example.themoviedb.repository.popular
+package com.example.themoviedb.repository.upcoming
 
 import android.util.Log
-import com.example.themoviedb.repository.RepositoryImplementation
-import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.presentation.model.ResultModel
-import com.example.themoviedb.remote.endpoint.PopularApi
+import com.example.themoviedb.remote.RemoteProject
+import com.example.themoviedb.remote.endpoint.UpComingApi
+import com.example.themoviedb.repository.RepositoryImplementation
 
-class PopularRepository(
-    private val remoteProject: RemoteProject<PopularApi>): RepositoryImplementation<ResultModel> {
+class UpComingRepository(
+    private val remoteProject: RemoteProject<UpComingApi>): RepositoryImplementation<ResultModel> {
 
     override suspend fun fetchData(callbackService: suspend () -> ResultModel?):
             ResultModel? = callbackService()
@@ -16,7 +16,7 @@ class PopularRepository(
         remoteProject
             .fetchServiceApi()
             .getApi
-            .getPopularMovies(API_KEY, LANGUAGE, PAGE).let{ response ->
+            .getUpComing(API_KEY, LANGUAGE, PAGE).let{ response ->
                 return@fetchData when(response.code()){
                     200 -> {
                         Log.i(OKHTTP_LOGGER, "Response: ${response.raw()}")

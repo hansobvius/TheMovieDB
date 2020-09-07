@@ -12,12 +12,9 @@ import com.example.themoviedb.presentation.model.ModelContract
 abstract class BaseAdapter<O, D>:
     RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O: ModelContract, D: ViewDataBinding {
 
-    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this, object : DiffUtil.ItemCallback<O>() {
-        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean =
-            oldItem === newItem
-
-        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean =
-            oldItem.equals(newItem)
+    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this@BaseAdapter, object : DiffUtil.ItemCallback<O>() {
+        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean = oldItem === newItem
+        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean = oldItem.equals(newItem)
         }
     )
 
@@ -27,7 +24,7 @@ abstract class BaseAdapter<O, D>:
 
     abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?, viewType: Int)
 
-    fun initializeAdapterData(list: List<O>){
+    override fun initializeAdapterData(list: List<O>){
         mDiffList?.submitList(list)
     }
 
