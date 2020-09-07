@@ -13,17 +13,14 @@ class TopRatedRepository(
             ResultModel? = callbackService()
 
     override suspend fun remoteService(): ResultModel? = fetchData {
-            remoteProject
-                .fetchServiceApi()
-                .getApi
-                .getTopRated(API_KEY, LANGUAGE, PAGE).let{ response ->
+            remoteProject.fetchServiceApi().getApi.getTopRated(API_KEY, LANGUAGE, PAGE).let{ response ->
                     return@fetchData when(response.code()){
                         200 -> {
-                            Log.i("TEST", "Response: ${response.raw()}")
+                            Log.i("OKHTTP_LOGGER", "Response: ${response.raw()}")
                             response.body()
                         }
                         else -> {
-                            Log.i("TEST", "ERROR")
+                            Log.i("OKHTTP_LOGGER", "ERROR")
                             throw Exception("Error to fetch data")
                         }
                     }
@@ -32,6 +29,7 @@ class TopRatedRepository(
     }
 
     companion object{
+        const val OKHTTP_LOGGER = "OkHttp"
         const val API_KEY = "38eeef9aa65a725363ccb5cde9df6342"
         const val LANGUAGE = "pt"
         const val PAGE = 1

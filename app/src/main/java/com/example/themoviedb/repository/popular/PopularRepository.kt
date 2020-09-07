@@ -13,10 +13,7 @@ class PopularRepository(
             ResultModel? = callbackService()
 
     override suspend fun remoteService(): ResultModel? = fetchData{
-        remoteProject
-            .fetchServiceApi()
-            .getApi
-            .getPopularMovies(API_KEY, LANGUAGE, PAGE).let{ response ->
+        remoteProject.fetchServiceApi().getApi.getPopularMovies(API_KEY, LANGUAGE, PAGE).let{ response ->
                 return@fetchData when(response.code()){
                     200 -> {
                         Log.i(OKHTTP_LOGGER, "Response: ${response.raw()}")
