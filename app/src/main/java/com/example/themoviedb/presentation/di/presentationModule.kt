@@ -17,9 +17,9 @@ val presentationModule = module {
 
     single<ViewModelFactory> {
         ViewModelFactory(
-            PopularRepository(RemoteProject(get(), PopularApi::class.java)),
-            TopRatedRepository(RemoteProject(get(), TopRatedApi::class.java)),
-            UpComingRepository(RemoteProject(get(), UpComingApi::class.java))
+            PopularRepository(RemoteProject(PopularApi::class.java)),
+            TopRatedRepository(RemoteProject(TopRatedApi::class.java)),
+            UpComingRepository(RemoteProject(UpComingApi::class.java))
         )
     }
 }

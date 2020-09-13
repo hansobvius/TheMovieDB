@@ -1,6 +1,7 @@
 package com.example.themoviedb.repository.upcoming
 
 import android.util.Log
+import com.example.themoviedb.BuildConfig
 import com.example.themoviedb.presentation.model.ResultModel
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.endpoint.UpComingApi
@@ -14,7 +15,7 @@ class UpComingRepository(
             ResultModel? = callbackService()
 
     override suspend fun remoteService(): ResultModel? = fetchData{
-        remoteProject.fetchServiceApi().getApi.getUpComing(API_KEY, LANGUAGE, PAGE).let{ response ->
+        remoteProject.fetchServiceApi().getApi.getUpComing(BuildConfig.API_KEY, LANGUAGE, PAGE).let{ response ->
             Log.i(OKHTTP_LOGGER, "${response.raw()}")
             return@fetchData when(response.code()){
                 200 -> response.body()
@@ -23,10 +24,8 @@ class UpComingRepository(
         }
     }
 
-
     companion object{
         const val OKHTTP_LOGGER = "OkHttp"
-        const val API_KEY = "38eeef9aa65a725363ccb5cde9df6342"
         const val LANGUAGE = "pt"
         const val PAGE = 1
     }

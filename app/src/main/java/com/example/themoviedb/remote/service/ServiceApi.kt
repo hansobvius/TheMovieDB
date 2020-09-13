@@ -10,7 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
-class ServiceApi {
+const val TIMEOUT: Long = 30
+
+object ServiceApi {
 
     fun getApiService(): Retrofit {
         return Retrofit.Builder()
@@ -29,7 +31,7 @@ class ServiceApi {
             .build()
 
 
-    inner class HttpInterceptor: Interceptor{
+    class HttpInterceptor: Interceptor{
         override fun intercept(chain: Interceptor.Chain): Response {
             val request = chain.request().newBuilder()
                 .addHeader("Content-type", "application/json")
@@ -37,9 +39,5 @@ class ServiceApi {
                 .build()
             return chain.proceed(request)
         }
-    }
-
-    companion object{
-        const val TIMEOUT: Long = 30
     }
 }
