@@ -1,4 +1,4 @@
-package com.example.themoviedb.presentation.adapter
+package com.example.themoviedb.presentation.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,17 +12,16 @@ import com.example.themoviedb.presentation.model.ModelContract
 abstract class BaseAdapter<O, D>:
     RecyclerView.Adapter<BaseViewHolder<D>>(), IAdapter<O> where O: ModelContract, D: ViewDataBinding {
 
-    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this@BaseAdapter, object : DiffUtil.ItemCallback<O>() {
-        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean = oldItem === newItem
-        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean = oldItem.equals(newItem)
-        }
-    )
-
     abstract var adapterCallback: ((view: D, position: Int, list: MutableList<O>?) -> Unit)?
 
     abstract fun viewContainer(): Int?
 
     abstract fun viewBinding(binding: D, position: Int, list: MutableList<O>?, viewType: Int)
+
+    override var mDiffList: AsyncListDiffer<O>? = AsyncListDiffer(this@BaseAdapter, object : DiffUtil.ItemCallback<O>() {
+        override fun areItemsTheSame(oldItem: O, newItem: O): Boolean = oldItem === newItem
+        override fun areContentsTheSame(oldItem: O, newItem: O): Boolean = oldItem.equals(newItem)
+    })
 
     override fun initializeAdapterData(list: List<O>){
         mDiffList?.submitList(list)

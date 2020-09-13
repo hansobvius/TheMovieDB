@@ -1,9 +1,9 @@
-package com.example.themoviedb.presentation.adapter.home
+package com.example.themoviedb.presentation.ui.adapter.home
 
 
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.RowContentBinding
-import com.example.themoviedb.presentation.adapter.BaseAdapter
+import com.example.themoviedb.presentation.ui.adapter.BaseAdapter
 import com.example.themoviedb.presentation.model.CategoryModel
 
 class SectionAdapter: BaseAdapter<CategoryModel, RowContentBinding>() {

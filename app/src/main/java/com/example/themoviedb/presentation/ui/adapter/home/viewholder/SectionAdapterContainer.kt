@@ -1,10 +1,10 @@
-package com.example.themoviedb.presentation.adapter.home.viewholder
+package com.example.themoviedb.presentation.ui.adapter.home.viewholder
 
 import android.content.Context
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.themoviedb.presentation.adapter.home.RowAdapter
+import com.example.themoviedb.presentation.ui.adapter.home.RowAdapter
 import com.example.themoviedb.presentation.model.MovieModel
 
 object SectionAdapterContainer {

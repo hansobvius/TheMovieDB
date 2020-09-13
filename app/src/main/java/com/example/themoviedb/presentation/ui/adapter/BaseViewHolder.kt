@@ -1,4 +1,4 @@
-package com.example.themoviedb.presentation.adapter
+package com.example.themoviedb.presentation.ui.adapter
 
 import android.view.View
 import androidx.databinding.DataBindingUtil

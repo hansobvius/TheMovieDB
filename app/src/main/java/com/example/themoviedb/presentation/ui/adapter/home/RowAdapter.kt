@@ -1,11 +1,8 @@
-package com.example.themoviedb.presentation.adapter.home
+package com.example.themoviedb.presentation.ui.adapter.home
 
-import android.service.voice.AlwaysOnHotwordDetector
-import android.util.Log
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.ItemContentBinding
-import com.example.themoviedb.presentation.adapter.BaseAdapter
-import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.ui.adapter.BaseAdapter
 import com.example.themoviedb.presentation.model.MovieModel
 
 class RowAdapter: BaseAdapter<MovieModel, ItemContentBinding>() {

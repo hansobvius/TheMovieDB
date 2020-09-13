@@ -1,7 +1,6 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
-import com.example.themoviedb.presentation.adapter.home.SectionAdapter
-import com.example.themoviedb.presentation.adapter.home.viewholder.SectionAdapterContainer
+import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
+import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
@@ -57,6 +56,11 @@ class HomeFragment : Fragment() {
     override fun onPause(){
         super.onPause()
         viewModel.cancelOperation()
+    }
+
+    override fun onDestroy(){
+        super.onDestroy()
+        viewModel.resultApi.removeObservers(this@HomeFragment)
     }
 
     private fun initAdapter(){

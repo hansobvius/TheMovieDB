@@ -1,7 +1,6 @@
-package com.example.themoviedb.presentation.adapter.home.viewholder
+package com.example.themoviedb.presentation.ui.adapter.home.viewholder
 
 import android.content.Context
-import android.util.Log
 import android.widget.ImageView
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.model.MovieModel
