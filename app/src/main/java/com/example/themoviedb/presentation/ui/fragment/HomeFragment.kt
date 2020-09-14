@@ -1,6 +1,7 @@
 package com.example.themoviedb.presentation.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
 import org.koin.android.ext.android.inject
@@ -45,8 +47,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         this@HomeFragment.run{
             this.initAdapter()
             this.initObserver()
@@ -65,22 +67,24 @@ class HomeFragment : Fragment() {
 
     private fun initAdapter(){
         binding.recyclerView.apply{
-            this.clipToPadding = true
-            this.layoutManager = LinearLayoutManager(
-                this@HomeFragment.requireContext(),
-                RecyclerView.VERTICAL,
-                false)
             this.setHasFixedSize(false)
             this.adapter = sectionAdapter
         }
     }
 
     private fun initObserver(){
-        viewModel.resultApi.observe(this, Observer { value ->
-            value?.let {
-               createRowAdapter(it)
-            }
-        })
+        viewModel.apply{
+            resultApi.observe(this@HomeFragment, Observer { value ->
+                value?.let {
+                    createRowAdapter(it)
+                }
+            })
+            bannerImage.observe(this@HomeFragment, Observer { imageBanner ->
+                imageBanner?.let{
+                    ImageHelper.render(this@HomeFragment.requireContext(), it, binding.bannerView)
+                }
+            })
+        }
     }
 
     private fun createRowAdapter(model: List<CategoryModel>){

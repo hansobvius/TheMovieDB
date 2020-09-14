@@ -1,5 +1,6 @@
 package com.example.themoviedb.presentation.viewmodel.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.example.themoviedb.repository.topRated.TopRatedRepository
 import com.example.themoviedb.presentation.model.CategoryModel
 import com.example.themoviedb.repository.upcoming.UpComingRepository
 import kotlinx.coroutines.*
+import kotlin.random.Random
 
 class HomeViewModel(
     private val popularRepository: PopularRepository,
@@ -22,9 +24,13 @@ class HomeViewModel(
     private val _resultApi = MutableLiveData<List<CategoryModel>>()
     val resultApi: LiveData<List<CategoryModel>> get() = _resultApi
 
+    private val _bannerImage = MutableLiveData<String>()
+    val bannerImage: LiveData<String> get() = _bannerImage
+
     fun initNetworkRequest(){
         viewModelScope.launch(Dispatchers.Main){
             _resultApi.value = asyncJob().await()
+            getSuggestion()
         }
     }
 
@@ -45,13 +51,21 @@ class HomeViewModel(
             )
         }
 
+    fun cancelOperation(){
+        viewModelScope.cancel()
+    }
+
+    private fun getSuggestion() {
+        _bannerImage.value =
+            _resultApi.value?.random()?.result?.results?.get(
+                Random.nextInt(0, _resultApi.value?.size!!.minus(1))
+            )?.posterPath
+    }
+
     override fun onCleared() {
         super.onCleared()
         _resultApi.value = null
-    }
-
-    fun cancelOperation(){
-        viewModelScope.cancel()
+        _bannerImage.value = null
     }
 
     companion object{
