@@ -1,4 +1,4 @@
-package com.example.themoviedb.presentation.ui.fragment
+package com.example.themoviedb.presentation.ui.fragment.home
 
 import android.os.Bundle
 import android.util.Log
@@ -6,45 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.HomeFragmentBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.ui.fragment.BaseFragment
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
 import org.koin.android.ext.android.inject
 
-class HomeFragment : Fragment() {
-
-    private lateinit var viewModel: HomeViewModel
-    private lateinit var binding: HomeFragmentBinding
-    private lateinit var header: HeaderContentBinding
+class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
 
     private val sectionAdapter: SectionAdapter by inject()
     private val viewModelFactory: ViewModelFactory by inject()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = HomeFragmentBinding.inflate(inflater).apply{
-            this.lifecycleOwner = this@HomeFragment
-        }
-        header = HeaderContentBinding.inflate(inflater)
-        return binding.root
-    }
+    override fun getViewModel() = ViewModelProvider(this.requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(
-            activity!!, viewModelFactory).get(HomeViewModel::class.java
-        ).also { viewModel ->
-            viewModel.initNetworkRequest()
-        }
+    override fun getViewBinding() = HomeFragmentBinding.inflate(LayoutInflater.from(this.requireContext()))
+
+    override fun onStart(){
+        super.onStart()
+        viewModel.initNetworkRequest()
     }
 
     override fun onResume() {
