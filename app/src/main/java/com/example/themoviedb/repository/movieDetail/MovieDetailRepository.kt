@@ -26,6 +26,5 @@ class MovieDetailRepository(
     companion object{
         const val OKHTTP_LOGGER = "OkHttp"
         const val LANGUAGE = "pt"
-        const val PAGE = 1
     }
 }
