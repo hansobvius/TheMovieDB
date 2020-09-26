@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.themoviedb.presentation.model.home.BannerModel
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
 import com.example.themoviedb.presentation.model.home.CategoryModel
@@ -23,8 +24,8 @@ class HomeViewModel(
     private val _resultApi = MutableLiveData<List<CategoryModel>>()
     val resultApi: LiveData<List<CategoryModel>> get() = _resultApi
 
-    private val _bannerImage = MutableLiveData<String>()
-    val bannerImage: LiveData<String> get() = _bannerImage
+    private val _bannerLiveData = MutableLiveData<BannerModel>()
+    val bannerLiveData: LiveData<BannerModel> get() = _bannerLiveData
 
     fun initNetworkRequest(){
         viewModelScope.launch(Dispatchers.Main){
@@ -55,16 +56,18 @@ class HomeViewModel(
     }
 
     private fun getSuggestion() {
-        _bannerImage.value =
-            _resultApi.value?.random()?.result?.results?.get(
-                Random.nextInt(0, 19)
-            )?.backdropPath
+        _resultApi.value?.random()?.result?.results?.get(
+            Random.nextInt(0, 19)
+        )?.apply {
+            val banner = BannerModel(this.id, this.backdropPath)
+            _bannerLiveData.value = banner
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
         _resultApi.value = null
-        _bannerImage.value = null
+        _bannerLiveData.value = null
     }
 
     companion object{

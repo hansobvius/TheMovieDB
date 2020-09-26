@@ -1,5 +1,6 @@
 package com.example.themoviedb.presentation.model.movieDetail
 
+import com.example.themoviedb.presentation.model.ModelContract
 import com.example.themoviedb.presentation.model.home.GenreIds
 import com.google.gson.annotations.SerializedName
 
@@ -27,4 +28,4 @@ class MoviesDetailModel(
     @SerializedName("video") val hasVideo: Boolean,
     @SerializedName("vote_avarage") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int
-)
+): ModelContract

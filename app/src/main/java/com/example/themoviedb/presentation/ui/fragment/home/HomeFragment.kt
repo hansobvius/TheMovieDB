@@ -1,12 +1,8 @@
 package com.example.themoviedb.presentation.ui.fragment.home
 
 import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.FragmentHomeBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
@@ -64,9 +60,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     createRowAdapter(it)
                 }
             })
-            bannerImage.observe(this@HomeFragment, Observer { imageBanner ->
-                imageBanner?.let{
-                    ImageHelper.render(this@HomeFragment.requireContext(), it, binding.bannerView)
+            bannerLiveData.observe(this@HomeFragment, Observer { imageBanner ->
+                imageBanner?.let{ bannerModel ->
+                    binding.bannerView.apply{
+                        ImageHelper.render(this@HomeFragment.requireContext(), bannerModel.posterPath, this)
+                        this.setOnClickListener {
+                            navigateTo(this@HomeFragment, R.id.action_homeFragment_to_movieDetailFragment, bannerModel.bannerId)
+                        }
+                    }
                 }
             })
         }
