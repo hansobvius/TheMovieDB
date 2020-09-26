@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.HeaderContentBinding
-import com.example.themoviedb.databinding.HomeFragmentBinding
+import com.example.themoviedb.databinding.FragmentHomeBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
 import com.example.themoviedb.presentation.model.CategoryModel
@@ -23,14 +23,14 @@ import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
 import org.koin.android.ext.android.inject
 
-class HomeFragment : BaseFragment<HomeFragmentBinding, HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private val sectionAdapter: SectionAdapter by inject()
     private val viewModelFactory: ViewModelFactory by inject()
 
     override fun getViewModel() = ViewModelProvider(this.requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
 
-    override fun getViewBinding() = HomeFragmentBinding.inflate(LayoutInflater.from(this.requireContext()))
+    override fun getViewBinding() = FragmentHomeBinding.inflate(LayoutInflater.from(this.requireContext()))
 
     override fun onStart(){
         super.onStart()
