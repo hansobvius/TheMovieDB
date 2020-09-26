@@ -20,7 +20,8 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
 
     override fun onStart(){
         super.onStart()
-        viewModel.initDetailMovieViewModel()
+        val argumentId: Long? = arguments?.getLong(ID_PATH)
+        viewModel.initDetailMovieViewModel(argumentId)
     }
 
     override fun onResume(){
@@ -32,7 +33,8 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
 
     private fun initObservers(){
         viewModel.movieDetail.observe(viewLifecycleOwner, Observer {
-            if(null != it) Log.i("TEST", "MovieDetailFragment movie title: ${it.title}")
+            if(null != it)
+                binding.textDetail.text = it.title
         })
     }
 }

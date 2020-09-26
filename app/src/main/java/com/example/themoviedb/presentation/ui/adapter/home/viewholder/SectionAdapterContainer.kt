@@ -15,7 +15,7 @@ object SectionAdapterContainer {
         titleView: TextView,
         listView: RecyclerView,
         movieList: List<MovieModel>?,
-        listener: ((position: Int) -> Unit)){
+        listener: ((id: Long) -> Unit)){
         val rowAdapter = RowAdapter()
             titleView.text = title
             listView.apply{
@@ -33,7 +33,7 @@ object SectionAdapterContainer {
                     list = list!!.toList(),
                     view = view.itemImageView)
                 view.itemImageView.setOnClickListener{
-                    listener(position)
+                    listener(list.get(position).id)
                 }
             }
         }

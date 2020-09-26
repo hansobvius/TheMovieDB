@@ -2,8 +2,12 @@ package com.example.themoviedb.presentation.ui.fragment.home
 
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.example.themoviedb.R
 import com.example.themoviedb.databinding.FragmentHomeBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
@@ -78,12 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                     titleView = view.headerTitle,
                     listView = view.movieList,
                     movieList = list!!.get(position).result.results
-                ){
-                    Toast.makeText(this@HomeFragment.requireContext(), "position: ${it + 1}", Toast.LENGTH_SHORT).show()
+                ){ id ->
+                    navigateTo(this@HomeFragment, R.id.action_homeFragment_to_movieDetailFragment, id)
                 }
             }
         }
     }
-
 }
 

@@ -14,9 +14,9 @@ class DetailMovieViewModel(
     private val _movieDetail = MutableLiveData<MoviesDetailModel>()
     val movieDetail: LiveData<MoviesDetailModel> get() = _movieDetail
 
-    fun initDetailMovieViewModel(){
+    fun initDetailMovieViewModel(id: Long?){
         viewModelScope.launch {
-            _movieDetail.value = movieDetailRepository.remoteService()
+            _movieDetail.value = movieDetailRepository.remoteService(id)
         }
     }
 }

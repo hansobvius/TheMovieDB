@@ -10,6 +10,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import kotlin.reflect.KClass
 
 abstract class BaseFragment<B, V>: Fragment() where B: ViewDataBinding, V: ViewModel {
@@ -32,5 +34,18 @@ abstract class BaseFragment<B, V>: Fragment() where B: ViewDataBinding, V: ViewM
             this.lifecycleOwner
         }
         return binding.root
+    }
+
+    companion object{
+
+        const val ID_PATH = "ID_ARGUMENT_KEY"
+
+        fun navigateTo(fragment: Fragment, navigationId: Int, argsId: Long?){
+            val bundle = Bundle()
+            argsId?.let{
+                bundle.putLong(ID_PATH, it)
+            }
+            fragment.findNavController().navigate(navigationId, bundle)
+        }
     }
 }

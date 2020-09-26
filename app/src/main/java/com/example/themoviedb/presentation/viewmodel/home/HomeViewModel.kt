@@ -35,13 +35,13 @@ class HomeViewModel(
 
     private suspend fun asyncJob(): Deferred<List<CategoryModel>> = scope.async {
             val popular = async {
-                popularRepository.remoteService()
+                popularRepository.remoteService(null)
             }.await()
             val topRated = async {
-                topRatedRepository.remoteService()
+                topRatedRepository.remoteService(null)
             }.await()
             val upComing = async {
-                upComingRepository.remoteService()
+                upComingRepository.remoteService(null)
             }.await()
             listOf(
                 CategoryModel(POPULAR_TITLE, popular!!),
