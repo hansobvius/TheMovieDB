@@ -58,8 +58,8 @@ class HomeViewModel(
     private fun getSuggestion() {
         _bannerImage.value =
             _resultApi.value?.random()?.result?.results?.get(
-                Random.nextInt(0, _resultApi.value?.size!!.minus(1))
-            )?.posterPath
+                Random.nextInt(0, 19)
+            )?.backdropPath
     }
 
     override fun onCleared() {
