@@ -1,22 +1,13 @@
 package com.example.themoviedb.presentation.ui.fragment.home
 
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.themoviedb.R
-import com.example.themoviedb.databinding.HeaderContentBinding
 import com.example.themoviedb.databinding.FragmentHomeBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
-import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.model.home.CategoryModel
 import com.example.themoviedb.presentation.ui.fragment.BaseFragment
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory

@@ -4,9 +4,8 @@ import android.util.Log
 import com.example.themoviedb.BuildConfig
 import com.example.themoviedb.repository.RepositoryImplementation
 import com.example.themoviedb.remote.RemoteProject
-import com.example.themoviedb.presentation.model.ResultModel
+import com.example.themoviedb.presentation.model.home.ResultModel
 import com.example.themoviedb.remote.endpoint.PopularApi
-import com.example.themoviedb.repository.topRated.TopRatedRepository
 
 class PopularRepository(
     private val remoteProject: RemoteProject<PopularApi>): RepositoryImplementation<ResultModel> {

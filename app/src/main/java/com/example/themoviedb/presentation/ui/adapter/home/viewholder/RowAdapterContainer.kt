@@ -3,7 +3,7 @@ package com.example.themoviedb.presentation.ui.adapter.home.viewholder
 import android.content.Context
 import android.widget.ImageView
 import com.example.themoviedb.presentation.util.ImageHelper
-import com.example.themoviedb.presentation.model.MovieModel
+import com.example.themoviedb.presentation.model.home.MovieModel
 
 object RowAdapterContainer {
 

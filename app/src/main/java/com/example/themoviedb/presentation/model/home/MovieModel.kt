@@ -1,5 +1,6 @@
-package com.example.themoviedb.presentation.model
+package com.example.themoviedb.presentation.model.home
 
+import com.example.themoviedb.presentation.model.ModelContract
 import com.google.gson.annotations.SerializedName
 
 class MovieModel(

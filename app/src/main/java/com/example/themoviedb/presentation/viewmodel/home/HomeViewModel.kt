@@ -1,13 +1,12 @@
 package com.example.themoviedb.presentation.viewmodel.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
-import com.example.themoviedb.presentation.model.CategoryModel
+import com.example.themoviedb.presentation.model.home.CategoryModel
 import com.example.themoviedb.repository.upcoming.UpComingRepository
 import kotlinx.coroutines.*
 import kotlin.random.Random
