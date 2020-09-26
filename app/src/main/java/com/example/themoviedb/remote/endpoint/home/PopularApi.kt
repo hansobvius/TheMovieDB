@@ -1,4 +1,4 @@
-package com.example.themoviedb.remote.endpoint
+package com.example.themoviedb.remote.endpoint.home
 
 import com.example.themoviedb.presentation.model.home.ResultModel
 import retrofit2.Response

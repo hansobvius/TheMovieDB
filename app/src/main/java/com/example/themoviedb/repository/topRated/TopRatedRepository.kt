@@ -5,7 +5,7 @@ import com.example.themoviedb.BuildConfig
 import com.example.themoviedb.repository.RepositoryImplementation
 import com.example.themoviedb.presentation.model.home.ResultModel
 import com.example.themoviedb.remote.RemoteProject
-import com.example.themoviedb.remote.endpoint.TopRatedApi
+import com.example.themoviedb.remote.endpoint.home.TopRatedApi
 
 class TopRatedRepository(
     private val remoteProject: RemoteProject<TopRatedApi>): RepositoryImplementation<ResultModel> {
