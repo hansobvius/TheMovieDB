@@ -25,7 +25,7 @@ class PopularRepository(
 
     companion object{
         const val OKHTTP_LOGGER = "OkHttp"
-        const val LANGUAGE = "pt"
+        const val LANGUAGE = "en-US"
         const val PAGE = 1
     }
 }

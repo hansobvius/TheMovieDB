@@ -54,15 +54,6 @@ class HomeViewModel(
             categoryModel
         }
 
-    private suspend fun getRequestAction(): MutableList<CategoryModel>?{
-        withContext(Dispatchers.Default) {
-            popularRepository.remoteService(null)
-        }?.let {
-//            categoryModel?.add(CategoryModel(POPULAR_TITLE, it))
-        }
-        return null
-    }
-
     fun cancelOperation(){
         viewModelScope.cancel()
     }

@@ -19,7 +19,7 @@ class MovieDetailRepository(
             Log.i(OKHTTP_LOGGER, "${response.body()}")
             return@fetchData when(response.code()){
                 200 -> response.body()
-                else -> throw Exception("Error to fetch data ${this::class.java.name}")
+                else -> null
             }
         }
     }
