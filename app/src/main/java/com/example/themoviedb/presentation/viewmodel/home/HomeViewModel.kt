@@ -34,22 +34,34 @@ class HomeViewModel(
         }
     }
 
-    private suspend fun asyncJob(): Deferred<List<CategoryModel>> = scope.async {
-            val popular = async {
+    private suspend fun asyncJob(): Deferred<MutableList<CategoryModel>?> = scope.async {
+            val categoryModel: MutableList<CategoryModel>? = mutableListOf()
+            async {
                 popularRepository.remoteService(null)
-            }.await()
-            val topRated = async {
+            }.await()?.let {
+                categoryModel?.add(CategoryModel(POPULAR_TITLE, it))
+            }
+            async {
                 topRatedRepository.remoteService(null)
-            }.await()
-            val upComing = async {
+            }.await()?.let{
+                categoryModel?.add(CategoryModel(TOP_RATED_TITLE, it))
+            }
+            async {
                 upComingRepository.remoteService(null)
-            }.await()
-            listOf(
-                CategoryModel(POPULAR_TITLE, popular!!),
-                CategoryModel(TOP_RATED_TITLE, topRated!!),
-                CategoryModel(UP_COMING_TITLE, upComing!!)
-            )
+            }.await()?.let {
+                categoryModel?.add(CategoryModel(UP_COMING_TITLE, it))
+            }
+            categoryModel
         }
+
+    private suspend fun getRequestAction(): MutableList<CategoryModel>?{
+        withContext(Dispatchers.Default) {
+            popularRepository.remoteService(null)
+        }?.let {
+//            categoryModel?.add(CategoryModel(POPULAR_TITLE, it))
+        }
+        return null
+    }
 
     fun cancelOperation(){
         viewModelScope.cancel()

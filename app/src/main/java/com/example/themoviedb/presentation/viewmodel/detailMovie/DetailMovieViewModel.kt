@@ -19,4 +19,8 @@ class DetailMovieViewModel(
             _movieDetail.value = movieDetailRepository.remoteService(id)
         }
     }
+
+    fun cleanMovieValue(){
+        _movieDetail.value = null
+    }
 }

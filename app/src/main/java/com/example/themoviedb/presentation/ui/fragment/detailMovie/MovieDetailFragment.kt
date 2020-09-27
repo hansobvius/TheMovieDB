@@ -31,6 +31,11 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
         }
     }
 
+    override fun onPause(){
+        super.onPause()
+        viewModel.cleanMovieValue()
+    }
+
     private fun initObservers(){
         viewModel.movieDetail.observe(viewLifecycleOwner, Observer {
             if(null != it)

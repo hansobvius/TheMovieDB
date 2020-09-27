@@ -18,7 +18,7 @@ class UpComingRepository(
             Log.i(OKHTTP_LOGGER, "${response.raw()}")
             return@fetchData when(response.code()){
                 200 -> response.body()
-                else -> throw Exception("Error to fetch data ${this::class.java.name}")
+                else -> null
             }
         }
     }
