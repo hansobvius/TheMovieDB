@@ -34,15 +34,11 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
         }
     }
 
-    override fun onPause(){
-        super.onPause()
-        viewModel.cleanMovieValue()
-    }
-
     private fun initObservers(){
         viewModel.movieDetail.observe(viewLifecycleOwner, Observer {
             if(null != it)
-                ImageHelper.render(this.requireContext(), it.posterPath, binding.detailBannerImage)
+                Log.i("TEST", "backdrop path: ${it.backdropPath}")
+                ImageHelper.render(this.requireContext(), it.backdropPath, binding.detailBannerImage)
         })
     }
 }

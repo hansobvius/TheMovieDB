@@ -15,8 +15,10 @@ object ImageHelper {
         else -> W_500
     }
 
-    fun render(context: Context, url: String, view: ImageView){
-        Glide.with(context).load(getImageBaseUrl() + getImageResolution(500) + url).fitCenter().into(view)
+    fun render(context: Context, url: String?, view: ImageView){
+        url?.let{
+            Glide.with(context).load(getImageBaseUrl() + getImageResolution(500) + url).fitCenter().into(view)
+        }
     }
 
     const val W_180 = "w180"
