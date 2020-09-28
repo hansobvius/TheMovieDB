@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.themoviedb.databinding.FragmentDetailMovieBinding
 import com.example.themoviedb.presentation.ui.fragment.BaseFragment
+import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.detailMovie.DetailMovieViewModel
 import org.koin.android.ext.android.inject
@@ -21,7 +22,9 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
     override fun onStart(){
         super.onStart()
         val argumentId: Long? = arguments?.getLong(ID_PATH)
-        viewModel.initDetailMovieViewModel(argumentId)
+        binding.viewModel = viewModel.also{
+            it.initDetailMovieViewModel(argumentId)
+        }
     }
 
     override fun onResume(){
@@ -39,7 +42,7 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
     private fun initObservers(){
         viewModel.movieDetail.observe(viewLifecycleOwner, Observer {
             if(null != it)
-                binding.textDetail.text = it.title
+                ImageHelper.render(this.requireContext(), it.posterPath, binding.detailBannerImage)
         })
     }
 }

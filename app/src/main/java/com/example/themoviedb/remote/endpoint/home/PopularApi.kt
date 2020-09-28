@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface PopularApi {
 
-    @GET("popularre")
+    @GET("popular")
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String,
         @Query("language")language: String,
