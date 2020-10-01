@@ -1,6 +1,7 @@
 package com.example.themoviedb.presentation.di
 
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
+import com.example.themoviedb.presentation.ui.fragment.detailMovie.DetailPresenter
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.endpoint.home.PopularApi
@@ -25,4 +26,6 @@ val presentationModule = module {
             MovieDetailRepository(RemoteProject(MovieDetailApi::class.java))
         )
     }
+
+    single<DetailPresenter>{ DetailPresenter() }
 }

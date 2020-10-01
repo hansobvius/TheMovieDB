@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TheMovieDB</string>
+    <string name="detail_image_description">movie detail poster</string>
 </resources>
