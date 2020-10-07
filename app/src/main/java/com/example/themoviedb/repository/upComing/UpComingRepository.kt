@@ -1,8 +1,8 @@
-package com.example.themoviedb.repository.upcoming
+package com.example.themoviedb.repository.upComing
 
 import android.util.Log
 import com.example.themoviedb.BuildConfig
-import com.example.themoviedb.presentation.model.home.ResultModel
+import com.example.themoviedb.presentation.model.movies.ResultModel
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.endpoint.home.UpComingApi
 import com.example.themoviedb.repository.RepositoryImplementation

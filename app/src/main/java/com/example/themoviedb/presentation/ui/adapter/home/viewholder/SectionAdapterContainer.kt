@@ -5,7 +5,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.themoviedb.presentation.ui.adapter.home.RowAdapter
-import com.example.themoviedb.presentation.model.home.MovieModel
+import com.example.themoviedb.presentation.model.movies.MovieModel
 
 object SectionAdapterContainer {
 

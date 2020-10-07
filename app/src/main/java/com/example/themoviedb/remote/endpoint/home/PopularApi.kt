@@ -1,6 +1,6 @@
 package com.example.themoviedb.remote.endpoint.home
 
-import com.example.themoviedb.presentation.model.home.ResultModel
+import com.example.themoviedb.presentation.model.movies.ResultModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

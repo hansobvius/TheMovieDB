@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.themoviedb.presentation.model.home.BannerModel
+import com.example.themoviedb.presentation.model.movies.BannerModel
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
-import com.example.themoviedb.presentation.model.home.CategoryModel
-import com.example.themoviedb.repository.upcoming.UpComingRepository
+import com.example.themoviedb.presentation.model.movies.CategoryModel
+import com.example.themoviedb.repository.upComing.UpComingRepository
 import kotlinx.coroutines.*
 import kotlin.random.Random
 

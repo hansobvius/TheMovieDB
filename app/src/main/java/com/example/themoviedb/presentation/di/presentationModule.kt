@@ -8,10 +8,12 @@ import com.example.themoviedb.remote.endpoint.home.PopularApi
 import com.example.themoviedb.remote.endpoint.home.TopRatedApi
 import com.example.themoviedb.remote.endpoint.home.UpComingApi
 import com.example.themoviedb.remote.endpoint.movieDetail.MovieDetailApi
+import com.example.themoviedb.remote.endpoint.movieDetail.UserReviewApi
 import com.example.themoviedb.repository.movieDetail.MovieDetailRepository
 import com.example.themoviedb.repository.popular.PopularRepository
 import com.example.themoviedb.repository.topRated.TopRatedRepository
-import com.example.themoviedb.repository.upcoming.UpComingRepository
+import com.example.themoviedb.repository.upComing.UpComingRepository
+import com.example.themoviedb.repository.userReview.UserReviewRepository
 import org.koin.dsl.module
 
 val presentationModule = module {
@@ -23,7 +25,8 @@ val presentationModule = module {
             PopularRepository(RemoteProject(PopularApi::class.java)),
             TopRatedRepository(RemoteProject(TopRatedApi::class.java)),
             UpComingRepository(RemoteProject(UpComingApi::class.java)),
-            MovieDetailRepository(RemoteProject(MovieDetailApi::class.java))
+            MovieDetailRepository(RemoteProject(MovieDetailApi::class.java)),
+            UserReviewRepository(RemoteProject(UserReviewApi::class.java))
         )
     }
 

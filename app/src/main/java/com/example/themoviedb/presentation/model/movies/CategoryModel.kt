@@ -1,4 +1,4 @@
-package com.example.themoviedb.presentation.model.home
+package com.example.themoviedb.presentation.model.movies
 
 import com.example.themoviedb.presentation.model.ModelContract
 

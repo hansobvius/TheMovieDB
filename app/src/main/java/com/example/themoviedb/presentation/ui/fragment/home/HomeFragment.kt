@@ -7,7 +7,7 @@ import com.example.themoviedb.R
 import com.example.themoviedb.databinding.FragmentHomeBinding
 import com.example.themoviedb.presentation.ui.adapter.home.SectionAdapter
 import com.example.themoviedb.presentation.ui.adapter.home.viewholder.SectionAdapterContainer
-import com.example.themoviedb.presentation.model.home.CategoryModel
+import com.example.themoviedb.presentation.model.movies.CategoryModel
 import com.example.themoviedb.presentation.ui.fragment.BaseFragment
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory

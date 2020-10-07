@@ -12,7 +12,7 @@ import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.detailMovie.DetailMovieViewModel
 import org.koin.android.ext.android.inject
 
-    class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieViewModel>() {
+class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieViewModel>() {
 
     private val viewModelFactory: ViewModelFactory by inject()
 

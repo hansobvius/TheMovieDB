@@ -3,7 +3,7 @@ package com.example.themoviedb.repository.topRated
 import android.util.Log
 import com.example.themoviedb.BuildConfig
 import com.example.themoviedb.repository.RepositoryImplementation
-import com.example.themoviedb.presentation.model.home.ResultModel
+import com.example.themoviedb.presentation.model.movies.ResultModel
 import com.example.themoviedb.remote.RemoteProject
 import com.example.themoviedb.remote.endpoint.home.TopRatedApi
 

@@ -3,7 +3,7 @@ package com.example.themoviedb.presentation.ui.adapter.home
 import com.example.themoviedb.R
 import com.example.themoviedb.databinding.ItemContentBinding
 import com.example.themoviedb.presentation.ui.adapter.BaseAdapter
-import com.example.themoviedb.presentation.model.home.MovieModel
+import com.example.themoviedb.presentation.model.movies.MovieModel
 
 class RowAdapter: BaseAdapter<MovieModel, ItemContentBinding>() {
 
