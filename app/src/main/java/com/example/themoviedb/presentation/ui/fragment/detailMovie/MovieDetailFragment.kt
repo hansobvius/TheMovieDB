@@ -37,14 +37,20 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
         }
     }
 
+    override fun onStop(){
+        super.onStop()
+        viewModel.cleanMovieValue()
+    }
+
     private fun initObservers(){
         viewModel.movieDetail.observe(viewLifecycleOwner, Observer {
-            if(null != it)
+            it?.let{
                 detailPresenter.init(
                     binding = binding,
                     viewModel = viewModel,
                     model = it
                 )
+            }
         })
     }
 }
