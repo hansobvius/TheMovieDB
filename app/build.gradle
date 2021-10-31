@@ -55,24 +55,24 @@ dependencies {
     // Material
     implementation "com.google.android.material:material:1.5.0-alpha05"
 
-    //Retrofit
+    // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
-    //Coroutine
+    // Coroutine
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
 
-    //Navigation
+    // Navigation
     implementation 'android.arch.navigation:navigation-fragment-ktx:1.0.0'
     implementation 'android.arch.navigation:navigation-ui-ktx:1.0.0'
 
-    //LiveData
+    // LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
-    //RecyclerView
+    // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     // Koin

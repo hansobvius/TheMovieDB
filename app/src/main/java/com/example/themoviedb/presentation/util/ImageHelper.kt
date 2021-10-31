@@ -21,7 +21,7 @@ object ImageHelper {
         }
     }
 
-    const val W_180 = "w180"
-    const val W_300 = "w300"
-    const val W_500 = "w500"
+    private const val W_180 = "w180"
+    private const val W_300 = "w300"
+    private const val W_500 = "w500"
 }

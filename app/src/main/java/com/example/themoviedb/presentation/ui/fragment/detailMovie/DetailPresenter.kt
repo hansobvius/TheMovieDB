@@ -5,7 +5,7 @@ import com.example.themoviedb.presentation.model.movieDetail.MoviesDetailModel
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.detailMovie.DetailMovieViewModel
 
-class DetailPresenter() {
+class DetailPresenter {
 
     fun init(binding: FragmentDetailMovieBinding?, viewModel: DetailMovieViewModel, model: MoviesDetailModel){
         buildDetailView(binding, model)

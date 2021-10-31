@@ -12,8 +12,8 @@ import com.example.themoviedb.repository.userReview.UserReviewRepository
 import kotlinx.coroutines.launch
 
 class DetailMovieViewModel(
-    val movieDetailRepository: MovieDetailRepository,
-    val userReviewRepository: UserReviewRepository): ViewModel() {
+    private val movieDetailRepository: MovieDetailRepository,
+    private val userReviewRepository: UserReviewRepository): ViewModel() {
 
     private val _movieDetail = MutableLiveData<MoviesDetailModel>()
     val movieDetail: LiveData<MoviesDetailModel> get() = _movieDetail

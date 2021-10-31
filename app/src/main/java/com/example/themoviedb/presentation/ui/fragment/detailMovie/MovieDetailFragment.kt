@@ -18,7 +18,7 @@ class MovieDetailFragment: BaseFragment<FragmentDetailMovieBinding, DetailMovieV
 
     private val detailPresenter: DetailPresenter by inject(DetailPresenter::class.java)
 
-    override fun getViewModel() = ViewModelProvider(requireActivity(), viewModelFactory).get(DetailMovieViewModel::class.java)
+    override fun getViewModel() = ViewModelProvider(requireActivity(), viewModelFactory)[DetailMovieViewModel::class.java]
 
     override fun getViewBinding() = FragmentDetailMovieBinding.inflate(LayoutInflater.from(this.requireContext()))
 

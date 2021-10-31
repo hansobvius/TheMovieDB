@@ -33,7 +33,7 @@ object SectionAdapterContainer {
                     list = list!!.toList(),
                     view = view.itemImageView)
                 view.itemImageView.setOnClickListener{
-                    listener(list.get(position).id)
+                    listener(list[position].id)
                 }
             }
         }

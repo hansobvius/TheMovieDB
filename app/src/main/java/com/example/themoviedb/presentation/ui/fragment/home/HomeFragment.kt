@@ -19,7 +19,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     private val sectionAdapter: SectionAdapter by inject(SectionAdapter::class.java)
     private val viewModelFactory: ViewModelFactory by inject(ViewModelFactory::class.java)
 
-    override fun getViewModel() = ViewModelProvider(this.requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
+    override fun getViewModel() = ViewModelProvider(this.requireActivity(), viewModelFactory)[HomeViewModel::class.java]
 
     override fun getViewBinding() = FragmentHomeBinding.inflate(LayoutInflater.from(this.requireContext()))
 
@@ -55,12 +55,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
     private fun initObserver(){
         viewModel.apply{
-            resultApi.observe(this@HomeFragment, Observer { value ->
+            resultApi.observe(this@HomeFragment, { value ->
                 value?.let {
                     createRowAdapter(it)
                 }
             })
-            bannerLiveData.observe(this@HomeFragment, Observer { imageBanner ->
+            bannerLiveData.observe(this@HomeFragment, { imageBanner ->
                 imageBanner?.let{ bannerModel ->
                     binding.bannerView.apply{
                         ImageHelper.render(this@HomeFragment.requireContext(), bannerModel.posterPath, this)
@@ -79,10 +79,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
             this.adapterCallback = { view, position, list ->
                 SectionAdapterContainer.createRowContainer(
                     context = this@HomeFragment.requireContext(),
-                    title = model.get(position).category,
+                    title = model[position].category,
                     titleView = view.headerTitle,
                     listView = view.movieList,
-                    movieList = list!!.get(position).result.results
+                    movieList = list!![position].result.results
                 ){ id ->
                     navigateTo(this@HomeFragment, R.id.action_homeFragment_to_movieDetailFragment, id)
                 }

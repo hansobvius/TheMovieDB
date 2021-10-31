@@ -10,7 +10,7 @@ object RowAdapterContainer {
     fun createPosterCard(context: Context, position: Int, list: List<MovieModel>, view: ImageView){
         ImageHelper.render(
             context,
-            list.get(position).posterPath,
+            list[position].posterPath,
             view
         )
     }

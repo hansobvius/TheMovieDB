@@ -24,16 +24,16 @@ abstract class BaseFragment<B, V>: Fragment() where B: ViewDataBinding, V: ViewM
 
     abstract fun getViewBinding(): B
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = getViewModel()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = getViewBinding().apply {
             this.lifecycleOwner
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = getViewModel()
     }
 
     companion object{
