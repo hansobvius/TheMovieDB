@@ -12,12 +12,12 @@ import com.example.themoviedb.presentation.ui.fragment.BaseFragment
 import com.example.themoviedb.presentation.util.ImageHelper
 import com.example.themoviedb.presentation.viewmodel.ViewModelFactory
 import com.example.themoviedb.presentation.viewmodel.home.HomeViewModel
-import org.koin.android.ext.android.inject
+import org.koin.java.KoinJavaComponent.inject
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
 
-    private val sectionAdapter: SectionAdapter by inject()
-    private val viewModelFactory: ViewModelFactory by inject()
+    private val sectionAdapter: SectionAdapter by inject(SectionAdapter::class.java)
+    private val viewModelFactory: ViewModelFactory by inject(ViewModelFactory::class.java)
 
     override fun getViewModel() = ViewModelProvider(this.requireActivity(), viewModelFactory).get(HomeViewModel::class.java)
 

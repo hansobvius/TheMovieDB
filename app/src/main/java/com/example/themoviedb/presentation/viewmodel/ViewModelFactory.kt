@@ -18,7 +18,7 @@ class ViewModelFactory(
     private val movieDetailRepository: MovieDetailRepository,
     private val userReviewRepository: UserReviewRepository): ViewModelProvider.Factory  {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = when{
+    override fun <T : ViewModel> create(modelClass: Class<T>): T = when {
         modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
             HomeViewModel(popularRepository, topRatedRepository, upComingRepository) as T
         }
